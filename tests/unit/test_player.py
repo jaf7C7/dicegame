@@ -16,3 +16,6 @@ def test_is_cpu_attr_is_boolean():
 
 def test_has_counter_attribute():
     assert hasattr(Player(), 'counter')
+
+def test_counter_initialised_to_10():
+    assert Player().counter == 10
