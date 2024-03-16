@@ -173,8 +173,8 @@ verbs imply methods. Start thinking about how to design your application.
     - [x] A Boolean value (True/False) to indicate if the player is a
           human or the computer.
     - [x] A counter. The initial value should be 10.
-    - [x] Make `die` a non-public attribute
-    - [ ] Make `counter` a non-public attribute
+    - [x] Make `die` a protected attribute
+    - [x] Make `counter` a protected attribute
 
 * Each player should be able to:
     - [ ] Increment the value of the counter by 1.
