@@ -10,4 +10,4 @@ class Die():
         return self._value
 
     def roll(self):
-        self._value = randint(1, 7)
+        self._value = randint(1, 6)
