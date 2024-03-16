@@ -18,3 +18,6 @@ class Player:
 
     def increment_counter(self):
         self._counter += 1
+
+    def decrement_counter(self):
+        pass

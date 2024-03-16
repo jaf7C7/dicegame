@@ -177,7 +177,7 @@ verbs imply methods. Start thinking about how to design your application.
     - [x] Make `counter` a protected attribute
 
 * Each player should be able to:
-    - [ ] Increment the value of the counter by 1.
+    - [x] Increment the value of the counter by 1.
     - [ ] Decrement the value of the counter by 1.
     - [ ] Roll the die.
 
