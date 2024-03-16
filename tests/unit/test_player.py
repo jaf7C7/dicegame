@@ -45,3 +45,9 @@ class TestCounter:
 
     def test_has_decrement_counter_attribute(self):
         assert hasattr(Player(), 'decrement_counter')
+
+    def test_decrement_counter_removes_one_from_counter(self):
+        player = Player()
+        initial = player.counter
+        player.decrement_counter()
+        assert player.counter == initial - 1

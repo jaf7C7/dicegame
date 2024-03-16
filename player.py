@@ -20,4 +20,4 @@ class Player:
         self._counter += 1
 
     def decrement_counter(self):
-        pass
+        self._counter -= 1
