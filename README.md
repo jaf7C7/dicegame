@@ -179,7 +179,7 @@ verbs imply methods. Start thinking about how to design your application.
 * Each player should be able to:
     - [x] Increment the value of the counter by 1.
     - [x] Decrement the value of the counter by 1.
-    - [ ] Roll the die.
+    - [x] Roll the die.
 
 
 ### DiceGame
