@@ -162,7 +162,7 @@ verbs imply methods. Start thinking about how to design your application.
               change should be handled internally.
 
 * Each die should be able to:
-    - [ ] Roll: Generate a random integer between 1 and 6 (inclusive)
+    - [x] Roll: Generate a random integer between 1 and 6 (inclusive)
           and assign it to the value attribute.
 
 
