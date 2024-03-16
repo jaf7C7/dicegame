@@ -1,3 +1,5 @@
+from random import randint
+
 class Die():
 
     def __init__(self, value=None):
@@ -8,4 +10,4 @@ class Die():
         return self._value
 
     def roll(self):
-        pass
+        self._value = randint(1, 7)
