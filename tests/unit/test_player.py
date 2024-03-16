@@ -13,3 +13,6 @@ def test_has_is_cpu_attribute():
 
 def test_is_cpu_attr_is_boolean():
     assert isinstance(Player().is_cpu, bool)
+
+def test_has_counter_attribute():
+    assert hasattr(Player(), 'counter')
