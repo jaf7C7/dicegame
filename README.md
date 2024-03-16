@@ -169,7 +169,7 @@ verbs imply methods. Start thinking about how to design your application.
 ### Player
 
 * Each player should have the following attributes:
-    - [ ] A Die instance.
+    - [x] A Die instance.
     - [ ] A Boolean value (True/False) to indicate if the player is a
           human or the computer.
     - [ ] A counter. The initial value should be 10.
