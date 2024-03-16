@@ -10,3 +10,6 @@ def test_die_attribute_is_die_instance():
 
 def test_has_is_cpu_attribute():
     assert hasattr(Player(), 'is_cpu')
+
+def test_is_cpu_attr_is_boolean():
+    assert isinstance(Player().is_cpu, bool)
