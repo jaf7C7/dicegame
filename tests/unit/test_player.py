@@ -36,3 +36,9 @@ class TestCounter:
 
     def test_has_increment_counter_attribute(self):
         assert hasattr(Player(), 'increment_counter')
+
+    def test_increment_counter_adds_one_to_counter(self):
+        player = Player()
+        initial = player.counter
+        player.increment_counter()
+        assert player.counter == initial + 1

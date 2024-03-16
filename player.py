@@ -17,4 +17,4 @@ class Player:
         return self._counter
 
     def increment_counter(self):
-        pass
+        self._counter += 1
