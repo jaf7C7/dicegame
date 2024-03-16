@@ -158,7 +158,7 @@ verbs imply methods. Start thinking about how to design your application.
     - [x] A value.
         - [x] This value should be either None (if the die has not been
               rolled yet) or a random integer between 1 and 6 (inclusive).
-        - [ ] This attribute should not be changed outside the class. The
+        - [x] This attribute should not be changed outside the class. The
               change should be handled internally.
 
 * Each die should be able to:
