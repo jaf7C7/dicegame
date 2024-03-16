@@ -11,3 +11,6 @@ def test_value_initialised_to_none():
 def test_value_cannot_be_changed_outside_the_class():
     with pytest.raises(AttributeError):
         Die().value = 10
+
+def test_has_roll_method():
+    assert hasattr(Die(), 'roll')

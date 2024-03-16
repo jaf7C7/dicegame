@@ -6,3 +6,6 @@ class Die():
     @property
     def value(self):
         return self._value
+
+    def roll(self):
+        pass
