@@ -15,3 +15,6 @@ class Player:
     @property
     def counter(self):
         return self._counter
+
+    def increment_counter(self):
+        pass

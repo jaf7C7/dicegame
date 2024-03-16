@@ -33,3 +33,6 @@ class TestCounter:
     def test_counter_is_a_protected_attribute(self):
         with pytest.raises(AttributeError):
             Player().counter = 0
+
+    def test_has_increment_counter_attribute(self):
+        assert hasattr(Player(), 'increment_counter')
