@@ -14,6 +14,9 @@ class TestDie:
         with pytest.raises(AttributeError):
             Player().die = 'new die'
 
+    def test_has_roll_attribute(self):
+        assert hasattr(Player(), 'roll_die')
+
 
 class TestIsCPU:
     def test_has_is_cpu_attribute(self):

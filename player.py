@@ -12,6 +12,9 @@ class Player:
     def die(self):
         return self._die
 
+    def roll_die(self):
+        pass
+
     @property
     def counter(self):
         return self._counter
