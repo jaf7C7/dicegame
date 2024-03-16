@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import Mock
 from player import Player
 
 
@@ -17,6 +18,10 @@ class TestDie:
     def test_has_roll_attribute(self):
         assert hasattr(Player(), 'roll_die')
 
+    def test_roll_die_calls_roll_method_on_die_object(self):
+        player = Player(die=Mock())
+        player.roll_die()
+        player.die.roll.assert_called()
 
 class TestIsCPU:
     def test_has_is_cpu_attribute(self):
