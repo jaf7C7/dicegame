@@ -1,4 +1,8 @@
 class Die():
 
     def __init__(self, value=None):
-        self.value = value
+        self._value = value
+
+    @property
+    def value(self):
+        return self._value
