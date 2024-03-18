@@ -28,4 +28,4 @@ class Game:
         )
 
     def game_over(self):
-        return any(p.counter == 0 for p in (self.player_1, self.player_2))
+        return self.player_1.counter == 0 or self.player_2.counter == 0
