@@ -1,16 +1,14 @@
 import pytest
+from unittest.mock import Mock
 from game import Game
 
 
 class TestPlay:
-    def display(self, message):
-        self.messages.append(message)
-
     def test_displays_welcome_message(self):
-        self.messages = []
-        Game().play(display=self.display)
-        assert (
+        game = Game(display=Mock())
+        game.play()
+        game.display.assert_any_call(
             '=========================\n'
             'Welcome To The Dice Game!\n'
             '=========================\n'
-        ) in self.messages
+        )
