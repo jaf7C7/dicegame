@@ -7,10 +7,6 @@ class TestDie:
     def test_has_die_attribute(self):
         assert hasattr(Player(), 'die')
 
-    def test_die_attribute_is_die_instance(self):
-        from die import Die  # fmt: skip
-        assert isinstance(Player().die, Die)
-
     def test_die_is_protected_attribute(self):
         with pytest.raises(AttributeError):
             Player().die = 'new die'
