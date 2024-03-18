@@ -8,7 +8,7 @@ class TestDie:
         assert hasattr(Player(), 'die')
 
     def test_die_attribute_is_die_instance(self):
-        from die import Die
+        from die import Die  # fmt: skip
         assert isinstance(Player().die, Die)
 
     def test_die_is_protected_attribute(self):
@@ -22,6 +22,7 @@ class TestDie:
         player = Player(die=Mock())
         player.roll_die()
         player.die.roll.assert_called()
+
 
 class TestIsCPU:
     def test_has_is_cpu_attribute(self):
