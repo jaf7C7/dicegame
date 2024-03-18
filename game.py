@@ -26,3 +26,6 @@ class Game:
             f'Player 2: {self.player_2.counter}\n'
             '~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
         )
+
+    def game_over(self):
+        return any(p.counter == 0 for p in (self.player_1, self.player_2))

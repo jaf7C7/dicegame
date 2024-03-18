@@ -40,3 +40,9 @@ class TestPlayRound:
             f'Player 2: {game.player_2.counter}\n'
             '~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
         )
+
+
+class TestGameOver:
+    def test_returns_true_when_any_player_counter_is_zero(self, game):
+        game.player_1.counter = 0
+        assert game.game_over() is True
