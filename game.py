@@ -1,5 +1,7 @@
 class Game:
-    def __init__(self, display):
+    def __init__(self, player_1, player_2, display):
+        self.player_1 = player_1
+        self.player_2 = player_2
         self.display = display
 
     def play(self):
@@ -14,3 +16,6 @@ class Game:
             'Round 1:\n'
             '--------\n'
         )  # fmt: skip
+
+        self.player_1.roll_die()
+        self.player_2.roll_die()
