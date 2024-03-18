@@ -116,11 +116,11 @@ verbs imply methods. Start thinking about how to design your application.
 
 ## General Requirements
 
-- [ ] The game should have two players: a human player and a computer
+- [x] The game should have two players: a human player and a computer
       player. Both should have the same functionality.
-- [ ] Both players will start with a counter of 10.
-- [ ] Each player will have a particular die during the entire game.
-- [ ] Both players will roll their corresponding die (once per round).
+- [x] Both players will start with a counter of 10.
+- [x] Each player will have a particular die during the entire game.
+- [x] Both players will roll their corresponding die (once per round).
 - [ ] The values of the dice will be compared to determine who wins the
       round. The player with the highest value wins the round.
 - [ ] If the two values are equal, then there is a tie and there is no
@@ -138,18 +138,18 @@ verbs imply methods. Start thinking about how to design your application.
           to press any key to start the round.
 
 * **Rolling the dice**
-    - [ ] When a player rolls the dice, the result should be a random
+    - [x] When a player rolls the dice, the result should be a random
           integer between 1 and 6 (inclusive).
 
 * **Messages**
     * The game should show a descriptive message:
-        - [ ] When the game starts.
-        - [ ] When a new round starts.
+        - [x] When the game starts.
+        - [x] When a new round starts.
         - [ ] When the game ends. This message should mention who won the game.
     * The game should display messages to:
         - [ ] Show the value of each die after the players roll the dice.
         - [ ] Mention the winner of the round or if there was a tie.
-        - [ ] Show both counters when a round ends.
+        - [x] Show both counters when a round ends.
 
 
 ### Die
@@ -205,7 +205,9 @@ verbs imply methods. Start thinking about how to design your application.
         - [ ] Determine the winner and loser of the round
         - [ ] Update the counters accordingly
         - [x] Show the values of the counters.
+        - [ ] Declare the winner of the round.
     - [ ] Determine when the game is over and stop the game.
         - [x] The game should end when the counter of either one of
               the players has reached the value 0.
-        - [ ] A descriptive message should be printed before the game ends.
+        - [x] A descriptive message should be printed before the game ends.
+        - [ ] The final message should declare the winner of the game.
