@@ -202,7 +202,8 @@ verbs imply methods. Start thinking about how to design your application.
           round logic. It should:
         - [x] Welcome the player to the round
         - [x] Roll the dice
-        - [ ] Determine the winner and loser of the round
+        - [ ] Determine the winner and loser of the round, or if the
+              round is a tie
         - [ ] Update the counters accordingly
         - [x] Show the values of the counters.
         - [ ] Declare the winner of the round.
