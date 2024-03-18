@@ -201,7 +201,7 @@ verbs imply methods. Start thinking about how to design your application.
     - [ ] Start a round (play round): This method should handle the main
           round logic. It should:
         - [x] Welcome the player to the round
-        - [ ] Roll the dice
+        - [x] Roll the dice
         - [ ] Determine the winner and loser of the round
         - [ ] Update the counters accordingly
         - [ ] Show the values of the counters.
