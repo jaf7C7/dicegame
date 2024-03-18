@@ -8,3 +8,9 @@ class Game:
             'Welcome To The Dice Game!\n'
             '=========================\n'
         )
+
+    def play_round(self):
+        self.display(
+            'Round 1:\n'
+            '--------\n'
+        )  # fmt: skip

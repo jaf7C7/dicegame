@@ -12,3 +12,13 @@ class TestPlay:
             'Welcome To The Dice Game!\n'
             '=========================\n'
         )
+
+
+class TestPlayRound:
+    def test_displays_round_start_message(self):
+        game = Game(display=Mock())
+        game.play_round()
+        game.display.assert_any_call(
+            'Round 1:\n'
+            '--------\n'
+        )  # fmt: skip
