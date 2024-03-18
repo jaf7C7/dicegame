@@ -6,7 +6,7 @@ class TestPlay:
     def display(self, message):
         self.messages.append(message)
 
-    def test_displays_welcome_message(self, capsys):
+    def test_displays_welcome_message(self):
         self.messages = []
         Game().play(display=self.display)
         assert (
