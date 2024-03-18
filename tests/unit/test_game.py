@@ -46,3 +46,7 @@ class TestGameOver:
     def test_returns_true_when_any_player_counter_is_zero(self, game):
         game.player_1.counter = 0
         assert game.game_over() is True
+
+    def test_returns_false_when_neither_player_counter_is_zero(self, game):
+        assert game.player_1.counter != 0 and game.player_2.counter != 0
+        assert game.game_over() is False
