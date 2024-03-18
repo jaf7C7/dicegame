@@ -200,7 +200,7 @@ verbs imply methods. Start thinking about how to design your application.
               a counter has reached the value 0.
     - [ ] Start a round (play round): This method should handle the main
           round logic. It should:
-        - [ ] Welcome the player to the round
+        - [x] Welcome the player to the round
         - [ ] Roll the dice
         - [ ] Determine the winner and loser of the round
         - [ ] Update the counters accordingly
