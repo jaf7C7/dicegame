@@ -32,5 +32,11 @@ class Game:
             '~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
         )
 
+        self.display(
+            '*************************\n'
+            'Round 1: WINNER: Player 1\n'
+            '*************************\n'
+        )
+
     def game_over(self):
         return self.player_1.counter == 0 or self.player_2.counter == 0

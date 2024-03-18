@@ -49,6 +49,16 @@ class TestPlayRound:
             '~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
         )
 
+    def test_determines_winner_and_loser(self, game):
+        game.player_1.die.value = 6
+        game.player_2.die.value = 1
+        game.play_round()
+        game.display.assert_any_call(
+            '*************************\n'
+            'Round 1: WINNER: Player 1\n'
+            '*************************\n'
+        )
+
 
 class TestGameOver:
     def test_returns_true_when_any_player_counter_is_zero(self, game):
