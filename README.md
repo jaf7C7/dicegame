@@ -204,7 +204,7 @@ verbs imply methods. Start thinking about how to design your application.
         - [x] Roll the dice
         - [ ] Determine the winner and loser of the round
         - [ ] Update the counters accordingly
-        - [ ] Show the values of the counters.
+        - [x] Show the values of the counters.
     - [ ] Determine when the game is over and stop the game.
         - [ ] The game should end when the counter of either one of
               the players has reached the value 0.
