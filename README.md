@@ -195,8 +195,9 @@ verbs imply methods. Start thinking about how to design your application.
 * Each instance of the game should be able to:
     - [ ] Start the game (play). This method will start the game
           logic. It should:
-        - [ ] Show a welcome message and create the endless loop that
-              will continue the game until a counter has reached the value 0.
+        - [x] Show a welcome message
+        - [ ] Create the endless loop that will continue the game until
+              a counter has reached the value 0.
     - [ ] Start a round (play round): This method should handle the main
           round logic. It should:
         - [ ] Welcome the player to the round
