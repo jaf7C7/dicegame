@@ -10,6 +10,11 @@ class Game:
             'Welcome To The Dice Game!\n'
             '=========================\n'
         )
+        self.display(
+            '===================\n'
+            '**** GAME OVER ****\n'
+            '===================\n'
+        )
 
     def play_round(self):
         self.display(

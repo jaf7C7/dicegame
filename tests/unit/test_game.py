@@ -19,6 +19,14 @@ class TestPlay:
             '=========================\n'
         )
 
+    def test_displays_end_of_game_message(self, game):
+        game.play()
+        game.display.assert_called_with(
+            '===================\n'
+            '**** GAME OVER ****\n'
+            '===================\n'
+        )
+
 
 class TestPlayRound:
     def test_displays_round_start_message(self, game):
