@@ -206,6 +206,6 @@ verbs imply methods. Start thinking about how to design your application.
         - [ ] Update the counters accordingly
         - [x] Show the values of the counters.
     - [ ] Determine when the game is over and stop the game.
-        - [ ] The game should end when the counter of either one of
+        - [x] The game should end when the counter of either one of
               the players has reached the value 0.
         - [ ] A descriptive message should be printed before the game ends.
