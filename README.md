@@ -212,3 +212,19 @@ verbs imply methods. Start thinking about how to design your application.
               the players has reached the value 0.
         - [x] A descriptive message should be printed before the game ends.
         - [x] The final message should declare the winner of the game.
+
+
+
+### Future development
+
+
+- [ ] Refactoring/redesign to make the code more modular:
+    - [ ] Accept N players, not just 2.
+    - [ ] `Game` object has an array of players, and a type of round to play
+    - [ ] `Round` has an array of players, performs an action (`roll_die`)
+          and returns a winner.
+    - [ ] `Game` updates the counter for `round.winner`
+    - [ ] When a player's counter reaches 0 the game is over
+- [ ] Add a CLI
+- [ ] Add an API
+- [ ] Add a web front-end
