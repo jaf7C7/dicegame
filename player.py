@@ -8,7 +8,7 @@ class Player:
             die = Die()
         self._die = die
         self.is_cpu = is_cpu
-        self._counter = 10
+        self._counter = 5
 
     @property
     def die(self):

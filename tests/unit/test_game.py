@@ -6,8 +6,8 @@ from game import Game
 @pytest.fixture
 def game():
     return Game(
-        player_1=Mock(is_cpu=False, counter=10, die=Mock(value=0)),
-        player_2=Mock(is_cpu=True, counter=10, die=Mock(value=0)),
+        player_1=Mock(is_cpu=False, counter=5, die=Mock(value=0)),
+        player_2=Mock(is_cpu=True, counter=5, die=Mock(value=0)),
         display=Mock(),
     )
 

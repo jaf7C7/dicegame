@@ -32,8 +32,8 @@ class TestCounter:
     def test_has_counter_attribute(self):
         assert hasattr(Player(), 'counter')
 
-    def test_counter_initialised_to_10(self):
-        assert Player().counter == 10
+    def test_counter_initialised_to_5(self):
+        assert Player().counter == 5
 
     def test_counter_is_a_protected_attribute(self):
         with pytest.raises(AttributeError):
