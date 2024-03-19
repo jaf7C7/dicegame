@@ -40,9 +40,7 @@ class Game:
             '*************************\n'
             f'Round 1: {result}\n'
             '*************************\n'
-        )
-
-        self.display(
+            '\n'
             '~~~~ Player counters: ~~~~\n'
             f'Player 1: {self.player_1.counter}\n'
             f'Player 2: {self.player_2.counter}\n'

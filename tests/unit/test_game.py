@@ -55,14 +55,6 @@ class TestPlayRound:
         game.player_1.decrement_counter.assert_not_called()
         game.player_2.increment_counter.assert_not_called()
 
-    def test_displays_values_of_counters(self, game):
-        game.play_round()
-        game.display.assert_any_call(
-            '~~~~ Player counters: ~~~~\n'
-            f'Player 1: {game.player_1.counter}\n'
-            f'Player 2: {game.player_2.counter}\n\n'
-        )
-
     @pytest.mark.parametrize(
         'p1_die,p2_die,result',
         [
@@ -71,7 +63,7 @@ class TestPlayRound:
             ('1', '1', "It's a Tie!"),
         ],
     )
-    def test_displays_results_of_round(self, game, p1_die, p2_die, result):
+    def test_displays_results_and_counters(self, game, p1_die, p2_die, result):
         game.player_1.die.value = p1_die
         game.player_2.die.value = p2_die
         game.play_round()
@@ -79,6 +71,11 @@ class TestPlayRound:
             '*************************\n'
             f'Round 1: {result}\n'
             '*************************\n'
+            '\n'
+            '~~~~ Player counters: ~~~~\n'
+            f'Player 1: {game.player_1.counter}\n'
+            f'Player 2: {game.player_2.counter}\n'
+            '\n'
         )
 
 
