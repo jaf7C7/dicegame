@@ -60,8 +60,7 @@ class TestPlayRound:
         game.display.assert_any_call(
             '~~~~ Player counters: ~~~~\n'
             f'Player 1: {game.player_1.counter}\n'
-            f'Player 2: {game.player_2.counter}\n'
-            '~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
+            f'Player 2: {game.player_2.counter}\n\n'
         )
 
     @pytest.mark.parametrize(

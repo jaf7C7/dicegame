@@ -37,16 +37,16 @@ class Game:
             self.player_1.increment_counter()
 
         self.display(
-            '~~~~ Player counters: ~~~~\n'
-            f'Player 1: {self.player_1.counter}\n'
-            f'Player 2: {self.player_2.counter}\n'
-            '~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
-        )
-
-        self.display(
             '*************************\n'
             f'Round 1: {result}\n'
             '*************************\n'
+        )
+
+        self.display(
+            '~~~~ Player counters: ~~~~\n'
+            f'Player 1: {self.player_1.counter}\n'
+            f'Player 2: {self.player_2.counter}\n'
+            '\n'
         )
 
     def game_over(self):
