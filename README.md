@@ -121,20 +121,20 @@ verbs imply methods. Start thinking about how to design your application.
 - [x] Both players will start with a counter of 10.
 - [x] Each player will have a particular die during the entire game.
 - [x] Both players will roll their corresponding die (once per round).
-- [ ] The values of the dice will be compared to determine who wins the
+- [x] The values of the dice will be compared to determine who wins the
       round. The player with the highest value wins the round.
-- [ ] If the two values are equal, then there is a tie and there is no
+- [x] If the two values are equal, then there is a tie and there is no
       winner for that round. The counters are not modified.
-- [ ] The counter of the player who wins a round will be decremented by 1.
-- [ ] The counter of the player who loses a round will be incremented by 1.
-- [ ] The counter will determine who wins the game. The player whose
+- [x] The counter of the player who wins a round will be decremented by 1.
+- [x] The counter of the player who loses a round will be incremented by 1.
+- [x] The counter will determine who wins the game. The player whose
       counter reaches the value 0 first wins the game.
 
 
 ## Specific Requirements
 
 * **Interactivity**
-    - [ ] Before the human player rolls the die, he/she should be prompted
+    - [x] Before the human player rolls the die, he/she should be prompted
           to press any key to start the round.
 
 * **Rolling the dice**
