@@ -64,7 +64,7 @@ class Game:
 
         self.display(
             '*************************\n'
-            f'Round 1: {result}\n'
+            f'Round {self.round_number}: {result}\n'
             '*************************\n'
             '\n'
             '~~~~ Player counters: ~~~~\n'

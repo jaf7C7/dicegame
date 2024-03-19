@@ -114,7 +114,7 @@ class TestPlayRound:
             game.play_round()
             game.display.assert_any_call(
                 '*************************\n'
-                f'Round 1: {result}\n'
+                f'Round {game.round_number}: {result}\n'
                 '*************************\n'
                 '\n'
                 '~~~~ Player counters: ~~~~\n'
