@@ -147,7 +147,7 @@ verbs imply methods. Start thinking about how to design your application.
         - [x] When a new round starts.
         - [x] When the game ends. This message should mention who won the game.
     * The game should display messages to:
-        - [ ] Show the value of each die after the players roll the dice.
+        - [x] Show the value of each die after the players roll the dice.
         - [x] Mention the winner of the round or if there was a tie.
         - [x] Show both counters when a round ends.
 
