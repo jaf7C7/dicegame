@@ -45,11 +45,17 @@ class TestPlay:
 
 
 class TestPlayRound:
-    def test_displays_round_start_message(self, game):
+    def test_displays_incrementing_round_numbers(self, game):
         with patch('game.input', return_value=''):
             game.play_round()
             game.display.assert_any_call(
                 'Round 1:\n'
+                '--------\n'
+            )  # fmt: skip
+
+            game.play_round()
+            game.display.assert_any_call(
+                'Round 2:\n'
                 '--------\n'
             )  # fmt: skip
 

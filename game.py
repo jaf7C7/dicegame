@@ -3,6 +3,7 @@ class Game:
         self.player_1 = player_1
         self.player_2 = player_2
         self.display = display
+        self.round_number = 0
         self.winner = None
 
     def play(self):
@@ -26,8 +27,10 @@ class Game:
         )
 
     def play_round(self):
+        self.round_number += 1
+
         self.display(
-            'Round 1:\n'
+            f'Round {self.round_number}:\n'
             '--------\n'
         )  # fmt: skip
 
