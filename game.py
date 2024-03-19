@@ -25,19 +25,23 @@ class Game:
         self.player_1.roll_die()
         self.player_2.roll_die()
 
+        if self.player_1.die.value == self.player_2.die.value:
+            result = "It's a Tie!"
+        elif self.player_1.die.value > self.player_2.die.value:
+            result = 'WINNER: Player 1'
+            self.player_1.decrement_counter()
+            self.player_2.increment_counter()
+        else:
+            result = 'WINNER: Player 2'
+            self.player_2.decrement_counter()
+            self.player_1.increment_counter()
+
         self.display(
             '~~~~ Player counters: ~~~~\n'
             f'Player 1: {self.player_1.counter}\n'
             f'Player 2: {self.player_2.counter}\n'
             '~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
         )
-
-        if self.player_1.die.value == self.player_2.die.value:
-            result = "It's a Tie!"
-        elif self.player_1.die.value > self.player_2.die.value:
-            result = 'WINNER: Player 1'
-        else:
-            result = 'WINNER: Player 2'
 
         self.display(
             '*************************\n'
