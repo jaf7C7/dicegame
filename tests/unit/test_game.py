@@ -78,7 +78,6 @@ class TestPlayRound:
                 '\n'
                 f'Player 1 rolled: {game.player_1.die.value}\n'
                 f'Player 2 rolled: {game.player_2.die.value}\n'
-                '\n'
             )
 
     def test_calls_update_counter_methods_on_players(self, game):

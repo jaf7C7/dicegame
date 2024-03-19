@@ -48,7 +48,6 @@ class Game:
             '\n'
             f'Player 1 rolled: {self.player_1.die.value}\n'
             f'Player 2 rolled: {self.player_2.die.value}\n'
-            '\n'
         )
 
         if self.player_1.die.value == self.player_2.die.value:
