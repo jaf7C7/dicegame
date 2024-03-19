@@ -187,8 +187,8 @@ verbs imply methods. Start thinking about how to design your application.
 * This class will represent a dice game.
 
 * Each instance of the game should have the following attributes:
-    - [ ] A human player instance.
-    - [ ] A computer player instance: This will create a relationship
+    - [x] A human player instance.
+    - [x] A computer player instance: This will create a relationship
           between these classes. A DiceGame "has a" human player and a
           computer player.
 
