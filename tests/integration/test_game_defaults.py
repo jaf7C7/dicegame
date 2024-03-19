@@ -15,3 +15,7 @@ class TestSaneDefaults:
         game = Game()
         assert hasattr(game.player_1.die, 'roll')
         assert hasattr(game.player_1.die, 'roll')
+
+    def test_both_players_have_individual_die(self):
+        game = Game()
+        assert game.player_1.die is not game.player_2.die
