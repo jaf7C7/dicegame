@@ -56,6 +56,14 @@ class TestPlayRound:
         game.play_round()
         assert all(p.roll_die.called for p in (game.player_1, game.player_2))
 
+    def test_displays_results_of_each_die_roll(self, game):
+        game.play_round()
+        game.display.assert_any_call(
+            f'Player 1 rolled: {game.player_1.die.value}\n'
+            f'Player 2 rolled: {game.player_2.die.value}\n'
+            '\n'
+        )
+
     def test_calls_update_counter_methods_on_players(self, game):
         game.player_1.die.value = 6
         game.player_2.die.value = 1
