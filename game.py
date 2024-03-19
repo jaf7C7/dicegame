@@ -32,9 +32,16 @@ class Game:
             '~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
         )
 
+        if self.player_1.die.value == self.player_2.die.value:
+            result = "It's a Tie!"
+        elif self.player_1.die.value > self.player_2.die.value:
+            result = 'WINNER: Player 1'
+        else:
+            result = 'WINNER: Player 2'
+
         self.display(
             '*************************\n'
-            'Round 1: WINNER: Player 1\n'
+            f'Round 1: {result}\n'
             '*************************\n'
         )
 

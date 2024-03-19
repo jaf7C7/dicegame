@@ -6,7 +6,9 @@ from game import Game
 @pytest.fixture
 def game():
     return Game(
-        player_1=Mock(counter=10), player_2=Mock(counter=10), display=Mock()
+        player_1=Mock(counter=10, die=Mock(value=0)),
+        player_2=Mock(counter=10, die=Mock(value=0)),
+        display=Mock(),
     )
 
 
@@ -49,13 +51,21 @@ class TestPlayRound:
             '~~~~~~~~~~~~~~~~~~~~~~~~~~\n'
         )
 
-    def test_determines_winner_and_loser(self, game):
-        game.player_1.die.value = 6
-        game.player_2.die.value = 1
+    @pytest.mark.parametrize(
+        'p1_die,p2_die,result',
+        [
+            ('6', '1', 'WINNER: Player 1'),
+            ('1', '6', 'WINNER: Player 2'),
+            ('1', '1', "It's a Tie!"),
+        ],
+    )
+    def test_displays_results_of_round(self, game, p1_die, p2_die, result):
+        game.player_1.die.value = p1_die
+        game.player_2.die.value = p2_die
         game.play_round()
         game.display.assert_any_call(
             '*************************\n'
-            'Round 1: WINNER: Player 1\n'
+            f'Round 1: {result}\n'
             '*************************\n'
         )
 
