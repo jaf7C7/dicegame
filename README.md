@@ -193,12 +193,12 @@ verbs imply methods. Start thinking about how to design your application.
           computer player.
 
 * Each instance of the game should be able to:
-    - [ ] Start the game (play). This method will start the game
+    - [x] Start the game (play). This method will start the game
           logic. It should:
         - [x] Show a welcome message
-        - [ ] Create the endless loop that will continue the game until
+        - [x] Create the endless loop that will continue the game until
               a counter has reached the value 0.
-    - [ ] Start a round (play round): This method should handle the main
+    - [x] Start a round (play round): This method should handle the main
           round logic. It should:
         - [x] Welcome the player to the round
         - [x] Roll the dice
