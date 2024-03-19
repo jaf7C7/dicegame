@@ -10,6 +10,10 @@ class Game:
             'Welcome To The Dice Game!\n'
             '=========================\n'
         )
+
+        while not self.game_over():
+            self.play_round()
+
         self.display(
             '===================\n'
             '**** GAME OVER ****\n'

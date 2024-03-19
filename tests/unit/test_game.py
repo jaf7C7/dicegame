@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from game import Game
 
 
@@ -14,20 +14,30 @@ def game():
 
 class TestPlay:
     def test_displays_welcome_message(self, game):
-        game.play()
-        game.display.assert_any_call(
-            '=========================\n'
-            'Welcome To The Dice Game!\n'
-            '=========================\n'
-        )
+        with patch.object(game, 'game_over', side_effect=[True]):
+            game.play()
+            game.display.assert_any_call(
+                '=========================\n'
+                'Welcome To The Dice Game!\n'
+                '=========================\n'
+            )
 
     def test_displays_end_of_game_message(self, game):
-        game.play()
-        game.display.assert_called_with(
-            '===================\n'
-            '**** GAME OVER ****\n'
-            '===================\n'
-        )
+        with patch.object(game, 'game_over', side_effect=[True]):
+            game.play()
+            game.display.assert_called_with(
+                '===================\n'
+                '**** GAME OVER ****\n'
+                '===================\n'
+            )
+
+    def test_calls_play_round_until_game_over(self, game):
+        with (
+            patch.object(game, 'game_over', side_effect=[False, False, True]),
+            patch.object(game, 'play_round') as fake_play_round,
+        ):
+            game.play()
+            assert fake_play_round.call_count == 2
 
 
 class TestPlayRound:
