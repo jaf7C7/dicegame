@@ -118,7 +118,7 @@ verbs imply methods. Start thinking about how to design your application.
 
 - [x] The game should have two players: a human player and a computer
       player. Both should have the same functionality.
-- [x] Both players will start with a counter of 10.
+- [x] Both players will start with a counter of 5.
 - [x] Each player will have a particular die during the entire game.
 - [x] Both players will roll their corresponding die (once per round).
 - [x] The values of the dice will be compared to determine who wins the
@@ -172,7 +172,7 @@ verbs imply methods. Start thinking about how to design your application.
     - [x] A Die instance.
     - [x] A Boolean value (True/False) to indicate if the player is a
           human or the computer.
-    - [x] A counter. The initial value should be 10.
+    - [x] A counter. The initial value should be 5.
     - [x] Make `die` a protected attribute
     - [x] Make `counter` a protected attribute
 
