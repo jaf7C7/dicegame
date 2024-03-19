@@ -29,6 +29,10 @@ class TestPlay:
                 '===================\n'
                 '**** GAME OVER ****\n'
                 '===================\n'
+                '\n'
+                'And the winner is...\n'
+                f'{game.winner}!\n'
+                '\n'
             )
 
     def test_calls_play_round_until_game_over(self, game):

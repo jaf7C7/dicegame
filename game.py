@@ -3,6 +3,7 @@ class Game:
         self.player_1 = player_1
         self.player_2 = player_2
         self.display = display
+        self.winner = None
 
     def play(self):
         self.display(
@@ -18,6 +19,10 @@ class Game:
             '===================\n'
             '**** GAME OVER ****\n'
             '===================\n'
+            '\n'
+            'And the winner is...\n'
+            f'{self.winner}!\n'
+            '\n'
         )
 
     def play_round(self):
@@ -52,4 +57,9 @@ class Game:
         )
 
     def game_over(self):
-        return self.player_1.counter == 0 or self.player_2.counter == 0
+        if self.player_1.counter == 0:
+            self.winner = self.player_1
+        elif self.player_2.counter == 0:
+            self.winner = self.player_2
+
+        return self.winner is not None
