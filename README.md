@@ -206,7 +206,7 @@ verbs imply methods. Start thinking about how to design your application.
               round is a tie
         - [ ] Update the counters accordingly
         - [x] Show the values of the counters.
-        - [ ] Declare the winner of the round.
+        - [x] Declare the results of the round.
     - [ ] Determine when the game is over and stop the game.
         - [x] The game should end when the counter of either one of
               the players has reached the value 0.
