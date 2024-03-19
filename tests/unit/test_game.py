@@ -23,17 +23,17 @@ class TestPlay:
             )
 
     def test_displays_end_of_game_message(self, game):
-        with patch.object(game, 'game_over', side_effect=[True]):
-            game.play()
-            game.display.assert_called_with(
-                '===================\n'
-                '**** GAME OVER ****\n'
-                '===================\n'
-                '\n'
-                'And the winner is...\n'
-                f'{game.winner}!\n'
-                '\n'
-            )
+        game.player_1.counter = 0
+        game.play()
+        game.display.assert_called_with(
+            '===================\n'
+            '**** GAME OVER ****\n'
+            '===================\n'
+            '\n'
+            'And the winner is...\n'
+            'Player 1!\n'
+            '\n'
+        )
 
     def test_calls_play_round_until_game_over(self, game):
         with (

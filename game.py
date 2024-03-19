@@ -74,8 +74,8 @@ class Game:
 
     def game_over(self):
         if self.player_1.counter == 0:
-            self.winner = self.player_1
+            self.winner = 'Player 1'
         elif self.player_2.counter == 0:
-            self.winner = self.player_2
+            self.winner = 'Player 2'
 
         return self.winner is not None
