@@ -62,7 +62,10 @@ class TestPlayRound:
     def test_update_counter_methods_not_called_if_round_tied(self, game):
         game.player_1.die.value = 1
         game.player_2.die.value = 1
+        game.play_round()
         game.player_1.decrement_counter.assert_not_called()
+        game.player_1.increment_counter.assert_not_called()
+        game.player_2.decrement_counter.assert_not_called()
         game.player_2.increment_counter.assert_not_called()
 
     @pytest.mark.parametrize(
