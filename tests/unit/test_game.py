@@ -75,6 +75,7 @@ class TestPlayRound:
         with patch('game.input', return_value=''):
             game.play_round()
             game.display.assert_any_call(
+                '\n'
                 f'Player 1 rolled: {game.player_1.die.value}\n'
                 f'Player 2 rolled: {game.player_2.die.value}\n'
                 '\n'
