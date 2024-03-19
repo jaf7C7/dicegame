@@ -145,10 +145,10 @@ verbs imply methods. Start thinking about how to design your application.
     * The game should show a descriptive message:
         - [x] When the game starts.
         - [x] When a new round starts.
-        - [ ] When the game ends. This message should mention who won the game.
+        - [x] When the game ends. This message should mention who won the game.
     * The game should display messages to:
         - [ ] Show the value of each die after the players roll the dice.
-        - [ ] Mention the winner of the round or if there was a tie.
+        - [x] Mention the winner of the round or if there was a tie.
         - [x] Show both counters when a round ends.
 
 
@@ -207,8 +207,8 @@ verbs imply methods. Start thinking about how to design your application.
         - [x] Update the counters accordingly
         - [x] Show the values of the counters.
         - [x] Declare the results of the round.
-    - [ ] Determine when the game is over and stop the game.
+    - [x] Determine when the game is over and stop the game.
         - [x] The game should end when the counter of either one of
               the players has reached the value 0.
         - [x] A descriptive message should be printed before the game ends.
-        - [ ] The final message should declare the winner of the game.
+        - [x] The final message should declare the winner of the game.
