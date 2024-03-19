@@ -6,8 +6,8 @@ from game import Game
 @pytest.fixture
 def game():
     return Game(
-        player_1=Mock(counter=10, die=Mock(value=0)),
-        player_2=Mock(counter=10, die=Mock(value=0)),
+        player_1=Mock(is_cpu=False, counter=10, die=Mock(value=0)),
+        player_2=Mock(is_cpu=True, counter=10, die=Mock(value=0)),
         display=Mock(),
     )
 
@@ -46,39 +46,51 @@ class TestPlay:
 
 class TestPlayRound:
     def test_displays_round_start_message(self, game):
-        game.play_round()
-        game.display.assert_any_call(
-            'Round 1:\n'
-            '--------\n'
-        )  # fmt: skip
+        with patch('game.input', return_value=''):
+            game.play_round()
+            game.display.assert_any_call(
+                'Round 1:\n'
+                '--------\n'
+            )  # fmt: skip
+
+    def test_requires_input_from_human_player_to_roll(self, game):
+        with patch('game.input', return_value='') as fake_input:
+            game.play_round()
+            fake_input.assert_called_once_with(
+                'Press any key to roll your die... '
+            )
 
     def test_calls_roll_die_on_players(self, game):
-        game.play_round()
+        with patch('game.input', return_value='') as fake_input:
+            game.play_round()
         assert all(p.roll_die.called for p in (game.player_1, game.player_2))
 
     def test_displays_results_of_each_die_roll(self, game):
-        game.play_round()
-        game.display.assert_any_call(
-            f'Player 1 rolled: {game.player_1.die.value}\n'
-            f'Player 2 rolled: {game.player_2.die.value}\n'
-            '\n'
-        )
+        with patch('game.input', return_value=''):
+            game.play_round()
+            game.display.assert_any_call(
+                f'Player 1 rolled: {game.player_1.die.value}\n'
+                f'Player 2 rolled: {game.player_2.die.value}\n'
+                '\n'
+            )
 
     def test_calls_update_counter_methods_on_players(self, game):
-        game.player_1.die.value = 6
-        game.player_2.die.value = 1
-        game.play_round()
-        game.player_1.decrement_counter.assert_called()
-        game.player_2.increment_counter.assert_called()
+        with patch('game.input', return_value=''):
+            game.player_1.die.value = 6
+            game.player_2.die.value = 1
+            game.play_round()
+            game.player_1.decrement_counter.assert_called()
+            game.player_2.increment_counter.assert_called()
 
     def test_update_counter_methods_not_called_if_round_tied(self, game):
-        game.player_1.die.value = 1
-        game.player_2.die.value = 1
-        game.play_round()
-        game.player_1.decrement_counter.assert_not_called()
-        game.player_1.increment_counter.assert_not_called()
-        game.player_2.decrement_counter.assert_not_called()
-        game.player_2.increment_counter.assert_not_called()
+        with patch('game.input', return_value=''):
+            game.player_1.die.value = 1
+            game.player_2.die.value = 1
+            game.play_round()
+            game.player_1.decrement_counter.assert_not_called()
+            game.player_1.increment_counter.assert_not_called()
+            game.player_2.decrement_counter.assert_not_called()
+            game.player_2.increment_counter.assert_not_called()
 
     @pytest.mark.parametrize(
         'p1_die,p2_die,result',
@@ -89,19 +101,20 @@ class TestPlayRound:
         ],
     )
     def test_displays_results_and_counters(self, game, p1_die, p2_die, result):
-        game.player_1.die.value = p1_die
-        game.player_2.die.value = p2_die
-        game.play_round()
-        game.display.assert_any_call(
-            '*************************\n'
-            f'Round 1: {result}\n'
-            '*************************\n'
-            '\n'
-            '~~~~ Player counters: ~~~~\n'
-            f'Player 1: {game.player_1.counter}\n'
-            f'Player 2: {game.player_2.counter}\n'
-            '\n'
-        )
+        with patch('game.input', return_value=''):
+            game.player_1.die.value = p1_die
+            game.player_2.die.value = p2_die
+            game.play_round()
+            game.display.assert_any_call(
+                '*************************\n'
+                f'Round 1: {result}\n'
+                '*************************\n'
+                '\n'
+                '~~~~ Player counters: ~~~~\n'
+                f'Player 1: {game.player_1.counter}\n'
+                f'Player 2: {game.player_2.counter}\n'
+                '\n'
+            )
 
 
 class TestGameOver:

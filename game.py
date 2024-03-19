@@ -31,8 +31,11 @@ class Game:
             '--------\n'
         )  # fmt: skip
 
-        self.player_1.roll_die()
-        self.player_2.roll_die()
+        for player in (self.player_1, self.player_2):
+            if not player.is_cpu:
+                input('Press any key to roll your die... ')
+            player.roll_die()
+
         self.display(
             f'Player 1 rolled: {self.player_1.die.value}\n'
             f'Player 2 rolled: {self.player_2.die.value}\n'
