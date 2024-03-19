@@ -14,13 +14,13 @@ def game():
 
 class TestPlay:
     def test_displays_welcome_message(self, game):
-        with patch.object(game, 'game_over', side_effect=[True]):
-            game.play()
-            game.display.assert_any_call(
-                '=========================\n'
-                'Welcome To The Dice Game!\n'
-                '=========================\n'
-            )
+        game.player_1.counter = 0
+        game.play()
+        game.display.assert_any_call(
+            '=========================\n'
+            'Welcome To The Dice Game!\n'
+            '=========================\n'
+        )
 
     def test_displays_end_of_game_message(self, game):
         game.player_1.counter = 0
