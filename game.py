@@ -1,5 +1,10 @@
+from player import Player
+
+
 class Game:
-    def __init__(self, player_1, player_2, display):
+    def __init__(
+        self, player_1=Player(), player_2=Player(is_cpu=True), display=print
+    ):
         self.player_1 = player_1
         self.player_2 = player_2
         self.display = display
