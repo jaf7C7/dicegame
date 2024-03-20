@@ -6,7 +6,7 @@ This is an exercise from the Udemy course
 Beginners"*](https://www.udemy.com/course/python-object-oriented-programming-oop/learn/lecture/32919418#content).
 
 The goal of the exercise is to understand the concepts of *inheritance*
-and *asociation*, as well as how to design a solution to a problem
+and *association*, as well as how to design a solution to a problem
 using OOP.
 
 
