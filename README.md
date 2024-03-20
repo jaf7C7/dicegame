@@ -9,6 +9,8 @@ The goal of the exercise is to understand the concepts of *inheritance*
 and *association*, as well as how to incrementally design a solution to
 a problem using OOP and TDD.
 
+The code is my own, the instructor's code can be found [here](instructor_solution.md)
+
 
 ## Inheritance and Association
 
