@@ -1,10 +1,11 @@
 class Round:
 
-    def __init__(self, display):
+    def __init__(self, number, display):
+        self.number = number
         self.display = display
 
     def play_round(self):
         self.display(
-            'Round 1:\n'
+            f'Round {self.number}:\n'
             '--------\n'
         )  # fmt: skip
