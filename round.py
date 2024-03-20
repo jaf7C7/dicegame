@@ -1,6 +1,8 @@
 class Round:
 
-    def __init__(self, number, display):
+    def __init__(self, player_1=None, player_2=None, number=1, display=print):
+        self.player_1 = player_1
+        self.player_2 = player_2
         self.number = number
         self.display = display
 
