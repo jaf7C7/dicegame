@@ -11,7 +11,7 @@ class Game:
         self.player_2 = player_2
         self.display = display
         self.round_number = 0
-        self.winner = None
+        self.game_winner = None
 
     def play(self):
         self._display_game_welcome()
@@ -31,16 +31,16 @@ class Game:
             player.roll_die()
 
         self._display_die_values()
-        self._determine_winner()
+        self._get_round_winner()
         self._display_player_counters()
 
     def game_over(self):
         if self.player_1.counter == 0:
-            self.winner = 'Player 1'
+            self.game_winner = 'Player 1'
         elif self.player_2.counter == 0:
-            self.winner = 'Player 2'
+            self.game_winner = 'Player 2'
 
-        return self.winner is not None
+        return self.game_winner is not None
 
     def _display_game_welcome(self):
         self.display(
@@ -56,7 +56,7 @@ class Game:
             '===================\n'
             '\n'
             'And the winner is...\n'
-            f'{self.winner}!\n'
+            f'{self.game_winner}!\n'
             '\n'
         )
 
@@ -73,7 +73,7 @@ class Game:
             f'Player 2 rolled: {self.player_2.die.value}\n'
         )
 
-    def _determine_winner(self):
+    def _get_round_winner(self):
         if self.player_1.die.value == self.player_2.die.value:
             self.round_result = "It's a Tie!"
         elif self.player_1.die.value > self.player_2.die.value:
