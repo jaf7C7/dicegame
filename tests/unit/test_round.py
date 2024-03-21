@@ -56,3 +56,16 @@ class TestPlay:
             f'Player 1 rolled: 1\n'
             f'Player 2 rolled: 2\n'
         )  # fmt: skip
+
+    def test_calls_update_counter_methods_on_players(self):
+        round_ = Round(
+            player_1=Mock(), player_2=Mock(), display=Mock(), input_=Mock()
+        )
+        round_.play()
+        assert (
+            round_.player_1.increment_counter.called
+            and round_.player_2.decrement_counter.called
+        ) or (
+            round_.player_1.decrement_counter.called
+            and round_.player_2.increment_counter.called
+        )
