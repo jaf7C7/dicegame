@@ -2,23 +2,43 @@
 #
 # .git/hooks/pre-commit
 #
-# Don't allow a commit with failing tests or inconsistent formatting.
+# Don't allow a commit if:
+#     - There are unstaged changes
+#     - There are untracked files
+#     - There are files with inconsistent formatting
+#     - There are failing tests
 #
+set -- 
 
-# Exit immediately with nonzero status if any untested command fails.
-set -e
+while IFS= read -r line
+do
+    case "$line" in
+    ' M '*|'?? '*)
+        cat <<\EOF
+Cannot run pre-commit checks with a dirty worktree.
 
-# Stash any unstaged changes, including untracked files, leaving only changes
-# which are staged for commit.
-#
-# NOTE: Ignored files are not touched.
-#
-git stash push --include-untracked --keep-index --quiet
+Clean up unstaged stages and untracked files by running:
 
-# If there are any python files staged for commit, check their formatting.
-set -- $(git diff --staged --name-only -- \*.py)
-if test $# -gt 0 && ! black --quiet --check "$@"; then
-    black .
+    git stash -uk
+
+Then try committing again.
+
+EOF
+        exit 1
+        ;;
+    'M  '*.py)
+        # Populate argv with staged python files.
+        pyfile="${line#'M  '}"
+        set -- "$@" "$pyfile"
+        ;;
+    esac
+done <<EOF
+$(git status --porcelain --untracked=all)
+EOF
+
+if test $# -gt 0 && ! black --quiet --check "$@"
+then
+    black "$@"
     cat <<\EOF
 
 Please review the formatted files and stage the new changes before committing.
@@ -27,8 +47,9 @@ EOF
     exit 1
 fi
 
-# Make sure the tests pass with the staged changes.
-python -m pytest --quiet
+if ! python -m pytest --quiet
+then
+    exit 1
+fi
 
-# Restore the dirty state of the worktree, and commit.
-git stash pop --quiet
+exit 0
