@@ -3,22 +3,28 @@ from unittest.mock import Mock
 from round import Round
 
 
+@pytest.fixture
+def round_():
+    return Round(
+        player_1=Mock(is_cpu=False, die=Mock(value=1)),
+        player_2=Mock(is_cpu=True, die=Mock(value=2)),
+        display=Mock(),
+        input_=Mock(),
+        number=1,
+    )
+
+
 class TestPlayers:
 
-    def test_has_two_players(self):
+    def test_has_two_players(self, round_):
         round_ = Round(player_1=Mock(), player_2=Mock())
         assert hasattr(round_, 'player_1') and hasattr(round_, 'player_2')
 
 
 class TestPlay:
 
-    def test_displays_correct_round_number(self):
-        round_ = Round(
-            player_1=Mock(die=Mock(value=0)),
-            player_2=Mock(die=Mock(value=0)),
-            display=Mock(),
-            number=2,
-        )
+    def test_displays_correct_round_number(self, round_):
+        round_.number = 2
         round_.play()
         round_.display.assert_any_call(
             'Round 2:\n'
@@ -29,32 +35,19 @@ class TestPlay:
         with pytest.raises(TypeError):
             round_ = Round()
 
-    def test_calls_roll_die_on_players(self):
-        round_ = Round(
-            player_1=Mock(die=Mock(value=0)), player_2=Mock(die=Mock(value=0))
-        )
+    def test_calls_roll_die_on_players(self, round_):
         round_.play()
         assert (
             round_.player_1.roll_die.called and round_.player_2.roll_die.called
         )
 
-    def test_requires_input_from_human_player_to_roll(self):
-        round_ = Round(
-            player_1=Mock(is_cpu=False, die=Mock(value=0)),
-            player_2=Mock(is_cpu=True, die=Mock(value=0)),
-            input_=Mock(),
-        )
+    def test_requires_input_from_human_player_to_roll(self, round_):
         round_.play()
         round_.input_.assert_called_once_with(
             'Player 1: Press any key to roll your die... '
         )
 
-    def test_displays_results_of_each_die_roll(self):
-        round_ = Round(
-            player_1=Mock(), player_2=Mock(), display=Mock(), input_=Mock()
-        )
-        round_.player_1.die.value = 1
-        round_.player_2.die.value = 2
+    def test_displays_results_of_each_die_roll(self, round_):
         round_.play()
         round_.display.assert_called_with(
             '\n'
@@ -65,16 +58,13 @@ class TestPlay:
     @pytest.mark.parametrize(
         'p1_die,p2_die,p1_method,p2_method',
         (
-            ('1', '6', 'increment_counter', 'decrement_counter'),
-            ('6', '1', 'decrement_counter', 'increment_counter'),
+            ('1', '2', 'increment_counter', 'decrement_counter'),
+            ('2', '1', 'decrement_counter', 'increment_counter'),
         ),
     )
     def test_calls_update_counter_methods_on_players_if_not_a_tie(
-        self, p1_die, p2_die, p1_method, p2_method
+        self, round_, p1_die, p2_die, p1_method, p2_method
     ):
-        round_ = Round(
-            player_1=Mock(), player_2=Mock(), display=Mock(), input_=Mock()
-        )
         round_.player_1.die.value = p1_die
         round_.player_2.die.value = p2_die
         round_.play()
