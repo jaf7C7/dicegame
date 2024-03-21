@@ -23,5 +23,9 @@ class Round:
             f'Player 1 rolled: {self.player_1.die.value}\n'
             f'Player 2 rolled: {self.player_2.die.value}\n'
         )
-        self.player_1.increment_counter()
-        self.player_2.decrement_counter()
+        if self.player_1.die.value > self.player_2.die.value:
+            self.player_1.decrement_counter()
+            self.player_2.increment_counter()
+        elif self.player_1.die.value < self.player_2.die.value:
+            self.player_1.increment_counter()
+            self.player_2.decrement_counter()
