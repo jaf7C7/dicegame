@@ -18,3 +18,8 @@ class Round:
             if player.is_cpu is False:
                 self.input_('Player 1: Press any key to roll your die... ')
             player.roll_die()
+        self.display(
+            '\n'
+            f'Player 1 rolled: {self.player_1.die.value}\n'
+            f'Player 2 rolled: {self.player_2.die.value}\n'
+        )

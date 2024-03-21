@@ -43,3 +43,16 @@ class TestPlay:
         round_.input_.assert_called_once_with(
             'Player 1: Press any key to roll your die... '
         )
+
+    def test_displays_results_of_each_die_roll(self):
+        round_ = Round(
+            player_1=Mock(), player_2=Mock(), display=Mock(), input_=Mock()
+        )
+        round_.player_1.die.value = 1
+        round_.player_2.die.value = 2
+        round_.play()
+        round_.display.assert_called_with(
+            '\n'
+            f'Player 1 rolled: 1\n'
+            f'Player 2 rolled: 2\n'
+        )  # fmt: skip
