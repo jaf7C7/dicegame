@@ -16,7 +16,7 @@ class TestPlay:
         round_ = Round(
             player_1=Mock(), player_2=Mock(), display=Mock(), number=2
         )
-        round_.play_round()
+        round_.play()
         round_.display.assert_any_call(
             'Round 2:\n'
             '--------\n'

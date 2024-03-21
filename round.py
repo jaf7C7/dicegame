@@ -6,7 +6,7 @@ class Round:
         self.number = number
         self.display = display
 
-    def play_round(self):
+    def play(self):
         self.display(
             f'Round {self.number}:\n'
             '--------\n'
