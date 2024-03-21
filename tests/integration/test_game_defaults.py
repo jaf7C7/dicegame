@@ -2,6 +2,7 @@ from game import Game
 
 
 class TestSaneDefaults:
+
     def test_has_one_human_one_computer_player(self):
         game = Game()
         assert game.player_1.is_cpu is False

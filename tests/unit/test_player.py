@@ -4,6 +4,7 @@ from player import Player
 
 
 class TestDie:
+
     def test_has_die_attribute(self):
         assert hasattr(Player(), 'die')
 
@@ -21,6 +22,7 @@ class TestDie:
 
 
 class TestIsCPU:
+
     def test_has_is_cpu_attribute(self):
         assert hasattr(Player(), 'is_cpu')
 
@@ -29,6 +31,7 @@ class TestIsCPU:
 
 
 class TestCounter:
+
     def test_has_counter_attribute(self):
         assert hasattr(Player(), 'counter')
 

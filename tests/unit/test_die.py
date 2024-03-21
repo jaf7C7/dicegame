@@ -3,6 +3,7 @@ from die import Die
 
 
 class TestDie:
+
     def test_has_value_attribute(self):
         assert hasattr(Die(), 'value')
 

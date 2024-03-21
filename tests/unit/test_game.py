@@ -13,6 +13,7 @@ def game():
 
 
 class TestPlay:
+
     def test_displays_welcome_message(self, game):
         game.player_1.counter = 0
         game.play()
@@ -37,7 +38,7 @@ class TestPlay:
 
     def test_calls_play_round_until_game_over(self, game):
         with (
-            patch.object(game, 'game_over', side_effect=[False, False, True]),
+            patch.object(game, '_game_over', side_effect=[False, False, True]),
             patch.object(game, 'play_round') as fake_play_round,
         ):
             game.play()
@@ -45,6 +46,7 @@ class TestPlay:
 
 
 class TestPlayRound:
+
     def test_displays_incrementing_round_numbers(self, game):
         with patch('game.input', return_value=''):
             game.play_round()
@@ -124,10 +126,11 @@ class TestPlayRound:
 
 
 class TestGameOver:
+
     def test_returns_true_when_any_player_counter_is_zero(self, game):
         game.player_1.counter = 0
-        assert game.game_over() is True
+        assert game._game_over() is True
 
     def test_returns_false_when_neither_player_counter_is_zero(self, game):
         assert game.player_1.counter != 0 and game.player_2.counter != 0
-        assert game.game_over() is False
+        assert game._game_over() is False
