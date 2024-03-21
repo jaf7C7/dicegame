@@ -4,7 +4,7 @@
 This is the code provided by the instructor as the solution to the problem:
 
 ```python
-```import random
+import random
  
 class Die:
  
