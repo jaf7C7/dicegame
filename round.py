@@ -11,3 +11,5 @@ class Round:
             f'Round {self.number}:\n'
             '--------\n'
         )  # fmt: skip
+        self.player_1.roll_die()
+        self.player_2.roll_die()
