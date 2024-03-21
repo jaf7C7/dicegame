@@ -32,3 +32,14 @@ class TestPlay:
         assert (
             round_.player_1.roll_die.called and round_.player_2.roll_die.called
         )
+
+    def test_requires_input_from_human_player_to_roll(self):
+        round_ = Round(
+            player_1=Mock(is_cpu=False),
+            player_2=Mock(is_cpu=True),
+            input_=Mock(),
+        )
+        round_.play()
+        round_.input_.assert_called_once_with(
+            'Player 1: Press any key to roll your die... '
+        )
