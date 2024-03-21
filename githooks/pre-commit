@@ -8,7 +8,7 @@
 #     - There are files with inconsistent formatting
 #     - There are failing tests
 #
-set -- 
+set --
 
 while IFS= read -r line
 do
@@ -17,9 +17,9 @@ do
         cat <<\EOF
 Cannot run pre-commit checks with a dirty worktree.
 
-Clean up unstaged stages and untracked files by running:
+Clean up unstaged and untracked files by running:
 
-    git stash -uk
+    git stash --include-untracked --keep-index
 
 Then try committing again.
 
