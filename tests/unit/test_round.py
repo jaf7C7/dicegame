@@ -72,3 +72,14 @@ class TestPlay:
             getattr(round_.player_1, p1_method).called
             and getattr(round_.player_2, p2_method).called
         )
+
+    def test_update_counter_methods_not_called_if_round_tied(self, round_):
+        round_.player_1.die.value = 1
+        round_.player_2.die.value = 1
+        round_.play()
+        assert not (
+            round_.player_1.increment_counter.called
+            and round_.player_1.decrement_counter.called
+            and round_.player_2.increment_counter.called
+            and round_.player_2.decrement_counter.called
+        )
