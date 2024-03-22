@@ -35,13 +35,21 @@ class TestPlayers:
 
 class TestPlay:
 
-    def test_displays_correct_round_number(self, round_):
-        round_.number = 2
+    def test_displays_round_number_at_start_of_round(self, round_):
         round_.play()
         round_.display.assert_any_call(
-            'Round 2:\n'
+            'Round 1:\n'
             '--------\n'
         )  # fmt: skip
+
+    def test_round_number_is_incremented_each_time_play_is_called(
+        self, round_
+    ):
+        assert round_.number == 0
+        round_.play()
+        assert round_.number == 1
+        round_.play()
+        assert round_.number == 2
 
     def test_calls_roll_die_on_players(self, round_):
         round_.play()

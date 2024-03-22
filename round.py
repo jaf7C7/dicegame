@@ -1,11 +1,9 @@
 class Round:
 
-    def __init__(
-        self, player_1, player_2, number=1, display=print, input_=input
-    ):
+    def __init__(self, player_1, player_2, display=print, input_=input):
         self.player_1 = player_1
         self.player_2 = player_2
-        self.number = number
+        self.number = 0
         self.display = display
         self.input_ = input_
         self._winner = None
@@ -25,6 +23,7 @@ class Round:
         return self._is_tie
 
     def play(self):
+        self.number += 1
         self.display(
             f'Round {self.number}:\n'
             '--------\n'
