@@ -13,7 +13,20 @@ set --
 while IFS= read -r line
 do
     case "$line" in
-    ' M '*|'?? '*)
+    'M  '*)
+        # Populate argv with staged python files.
+        if test -n "${line%%*.py}"
+        then
+            continue
+        fi
+        pyfile="${line#'M  '}"
+        set -- "$@" "$pyfile"
+        ;;
+    '')
+        # Not committing anything, e.g. `--amend`.
+        exit 0
+        ;;
+    *)
         cat <<\EOF
 Cannot run pre-commit checks with a dirty worktree.
 
@@ -25,11 +38,6 @@ Then try committing again.
 
 EOF
         exit 1
-        ;;
-    'M  '*.py)
-        # Populate argv with staged python files.
-        pyfile="${line#'M  '}"
-        set -- "$@" "$pyfile"
         ;;
     esac
 done <<EOF
