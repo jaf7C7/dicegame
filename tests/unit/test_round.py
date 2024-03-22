@@ -23,7 +23,12 @@ class TestPlayers:
 
 class TestPlay:
 
-    def test_displays_correct_round_number(self, round_):
+    def test_displays_correct_round_number(self):
+        round_ = Round(
+            player_1=Mock(die=Mock(value=0)),
+            player_2=Mock(die=Mock(value=0)),
+            display=Mock(),
+        )
         round_.number = 2
         round_.play()
         round_.display.assert_any_call(
@@ -35,19 +40,35 @@ class TestPlay:
         with pytest.raises(TypeError):
             round_ = Round()
 
-    def test_calls_roll_die_on_players(self, round_):
+    def test_calls_roll_die_on_players(self):
+        round_ = Round(
+            player_1=Mock(die=Mock(value=0)),
+            player_2=Mock(die=Mock(value=0)),
+        )
         round_.play()
         assert (
             round_.player_1.roll_die.called and round_.player_2.roll_die.called
         )
 
-    def test_requires_input_from_human_player_to_roll(self, round_):
+    def test_requires_input_from_human_player_to_roll(self):
+        round_ = Round(
+            player_1=Mock(die=Mock(value=0), is_cpu=False),
+            player_2=Mock(die=Mock(value=0), is_cpu=True),
+            input_=Mock(),
+        )
         round_.play()
         round_.input_.assert_called_once_with(
             'Player 1: Press any key to roll your die... '
         )
 
-    def test_displays_results_of_each_die_roll(self, round_):
+    def test_displays_results_of_each_die_roll(self):
+        round_ = Round(
+            player_1=Mock(),
+            player_2=Mock(),
+            display=Mock(),
+        )
+        round_.player_1.die.value = 1
+        round_.player_2.die.value = 2
         round_.play()
         round_.display.assert_called_with(
             '\n'
@@ -63,8 +84,12 @@ class TestPlay:
         ),
     )
     def test_calls_update_counter_methods_on_players_if_not_a_tie(
-        self, round_, p1_die, p2_die, p1_method, p2_method
+        self, p1_die, p2_die, p1_method, p2_method
     ):
+        round_ = Round(
+            player_1=Mock(),
+            player_2=Mock(),
+        )
         round_.player_1.die.value = p1_die
         round_.player_2.die.value = p2_die
         round_.play()
@@ -73,7 +98,11 @@ class TestPlay:
             and getattr(round_.player_2, p2_method).called
         )
 
-    def test_update_counter_methods_not_called_if_round_tied(self, round_):
+    def test_update_counter_methods_not_called_if_round_tied(self):
+        round_ = Round(
+            player_1=Mock(),
+            player_2=Mock(),
+        )
         round_.player_1.die.value = 1
         round_.player_2.die.value = 1
         round_.play()
@@ -84,7 +113,11 @@ class TestPlay:
             and round_.player_2.decrement_counter.called
         )
 
-    def test_correct_attributes_set_if_tie(self, round_):
+    def test_correct_attributes_set_if_tie(self):
+        round_ = Round(
+            player_1=Mock(),
+            player_2=Mock(),
+        )
         round_.player_1.die.value = 1
         round_.player_2.die.value = 1
         round_.play()
@@ -101,13 +134,16 @@ class TestPlay:
     )
     def test_correct_attributes_set_if_not_tie(
         self,
-        round_,
         p1_die,
         p2_die,
         p1_result,
         p2_result,
         is_tie,
     ):
+        round_ = Round(
+            player_1=Mock(),
+            player_2=Mock(),
+        )
         round_.player_1.die.value = p1_die
         round_.player_2.die.value = p2_die
         round_.play()
