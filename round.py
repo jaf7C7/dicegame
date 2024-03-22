@@ -9,12 +9,16 @@ class Round:
         self.display = display
         self.input_ = input_
         self._winner = None
-        self.loser = None
+        self._loser = None
         self.is_tie = False
 
     @property
     def winner(self):
         return self._winner
+
+    @property
+    def loser(self):
+        return self._loser
 
     def play(self):
         self.display(
@@ -32,12 +36,12 @@ class Round:
         )
         if self.player_1.die.value > self.player_2.die.value:
             self._winner = self.player_1
-            self.loser = self.player_2
+            self._loser = self.player_2
             self.player_1.decrement_counter()
             self.player_2.increment_counter()
         elif self.player_1.die.value < self.player_2.die.value:
             self._winner = self.player_2
-            self.loser = self.player_1
+            self._loser = self.player_1
             self.player_2.decrement_counter()
             self.player_1.increment_counter()
         else:
