@@ -15,8 +15,10 @@ def round_():
 
 class TestProtectedAttributes:
 
-    @pytest.mark.parametrize('attr', (('winner', 'loser')))
-    def test_winner_loser_attributes_are_protected(self, round_, attr):
+    @pytest.mark.parametrize('attr', (('winner', 'loser', 'is_tie')))
+    def test_winner_loser_and_is_tie_attributes_are_protected(
+        self, round_, attr
+    ):
         with pytest.raises(AttributeError):
             setattr(round_, attr, 'Cheater!')
 
@@ -145,7 +147,7 @@ class TestPlay:
 
     def test_displays_results_and_counters_if_tie(self, round_):
         round_.number = 1
-        round_.is_tie = True
+        round_._is_tie = True
         round_.player_1.counter = 1
         round_.player_2.counter = 2
         round_.play()

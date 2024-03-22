@@ -10,7 +10,7 @@ class Round:
         self.input_ = input_
         self._winner = None
         self._loser = None
-        self.is_tie = False
+        self._is_tie = False
 
     @property
     def winner(self):
@@ -19,6 +19,10 @@ class Round:
     @property
     def loser(self):
         return self._loser
+
+    @property
+    def is_tie(self):
+        return self._is_tie
 
     def play(self):
         self.display(
@@ -45,7 +49,7 @@ class Round:
             self.player_2.decrement_counter()
             self.player_1.increment_counter()
         else:
-            self.is_tie = True
+            self._is_tie = True
 
         if self.winner == self.player_1:
             result = 'WINNER: Player 1'
