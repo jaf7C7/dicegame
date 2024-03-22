@@ -70,7 +70,7 @@ class TestPlay:
         round_.player_1.die.value = 1
         round_.player_2.die.value = 2
         round_.play()
-        round_.display.assert_called_with(
+        round_.display.assert_any_call(
             '\n'
             f'Player 1 rolled: 1\n'
             f'Player 2 rolled: 2\n'
@@ -150,3 +150,26 @@ class TestPlay:
         assert getattr(round_, p1_result) is round_.player_1
         assert getattr(round_, p2_result) is round_.player_2
         assert round_.is_tie is is_tie
+
+    def test_displays_results_and_counters(self):
+        round_ = Round(
+            player_1=Mock(die=Mock(value=0)),
+            player_2=Mock(die=Mock(value=0)),
+            display=Mock(),
+        )
+        round_.number = 1
+        round_.winner = round_.player_1
+        round_.loser = round_.player_2
+        round_.player_1.counter = 1
+        round_.player_2.counter = 2
+        round_.play()
+        round_.display.assert_any_call(
+            '*************************\n'
+            f'Round 1: WINNER: Player 1\n'
+            '*************************\n'
+            '\n'
+            '~~~~ Player counters: ~~~~\n'
+            f'Player 1: 1\n'
+            f'Player 2: 2\n'
+            '\n'
+        )

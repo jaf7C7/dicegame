@@ -38,3 +38,14 @@ class Round:
             self.player_1.increment_counter()
         else:
             self.is_tie = True
+
+        self.display(
+            '*************************\n'
+            f'Round 1: WINNER: Player 1\n'
+            '*************************\n'
+            '\n'
+            '~~~~ Player counters: ~~~~\n'
+            f'Player 1: 1\n'
+            f'Player 2: 2\n'
+            '\n'
+        )
