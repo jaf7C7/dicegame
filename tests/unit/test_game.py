@@ -6,10 +6,7 @@ from game import Game
 @pytest.fixture
 def game():
     return Game(
-        player_1=Mock(is_cpu=False, counter=5, die=Mock(value=0)),
-        player_2=Mock(is_cpu=True, counter=5, die=Mock(value=0)),
-        round_=Mock(),
-        display=Mock(),
+        player_1=Mock(), player_2=Mock(), round_=Mock(), display=Mock()
     )
 
 
@@ -38,8 +35,8 @@ class TestPlay:
         )
 
     def test_calls_play_round_until_game_over(self, game):
-        with (
-            patch.object(game, '_game_over', side_effect=[False, False, True]),
+        with patch.object(
+            game, '_game_over', side_effect=[False, False, True]
         ):
             game.play()
             assert game.round.play.call_count == 2
