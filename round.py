@@ -8,9 +8,13 @@ class Round:
         self.number = number
         self.display = display
         self.input_ = input_
-        self.winner = None
+        self._winner = None
         self.loser = None
         self.is_tie = False
+
+    @property
+    def winner(self):
+        return self._winner
 
     def play(self):
         self.display(
@@ -27,12 +31,12 @@ class Round:
             f'Player 2 rolled: {self.player_2.die.value}\n'
         )
         if self.player_1.die.value > self.player_2.die.value:
-            self.winner = self.player_1
+            self._winner = self.player_1
             self.loser = self.player_2
             self.player_1.decrement_counter()
             self.player_2.increment_counter()
         elif self.player_1.die.value < self.player_2.die.value:
-            self.winner = self.player_2
+            self._winner = self.player_2
             self.loser = self.player_1
             self.player_2.decrement_counter()
             self.player_1.increment_counter()

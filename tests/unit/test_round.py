@@ -13,6 +13,12 @@ def round_():
     return round_
 
 
+class TestProtectedAttributes:
+    def test_winner_is_protected(self, round_):
+        with pytest.raises(AttributeError):
+            round_.winner = 'Cheater!'
+
+
 class TestPlayers:
 
     def test_has_two_players(self, round_):
@@ -119,7 +125,7 @@ class TestPlay:
 
     def test_displays_results_and_counters_if_not_tie(self, round_):
         round_.number = 1
-        round_.winner = round_.player_1
+        round_._winner = round_.player_1
         round_.loser = round_.player_2
         round_.player_1.counter = 1
         round_.player_2.counter = 2
