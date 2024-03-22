@@ -83,3 +83,11 @@ class TestPlay:
             and round_.player_2.increment_counter.called
             and round_.player_2.decrement_counter.called
         )
+
+    def test_correct_attributes_set_if_tie(self, round_):
+        round_.player_1.die.value = 1
+        round_.player_2.die.value = 1
+        round_.play()
+        assert round_.winner is None
+        assert round_.loser is None
+        assert round_.is_tie is True
