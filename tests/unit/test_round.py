@@ -151,7 +151,7 @@ class TestPlay:
         assert getattr(round_, p2_result) is round_.player_2
         assert round_.is_tie is is_tie
 
-    def test_displays_results_and_counters(self):
+    def test_displays_results_and_counters_if_not_tie(self):
         round_ = Round(
             player_1=Mock(die=Mock(value=0)),
             player_2=Mock(die=Mock(value=0)),
@@ -165,11 +165,33 @@ class TestPlay:
         round_.play()
         round_.display.assert_any_call(
             '*************************\n'
-            f'Round 1: WINNER: Player 1\n'
+            'Round 1: WINNER: Player 1\n'
             '*************************\n'
             '\n'
             '~~~~ Player counters: ~~~~\n'
-            f'Player 1: 1\n'
-            f'Player 2: 2\n'
+            'Player 1: 1\n'
+            'Player 2: 2\n'
+            '\n'
+        )
+
+    def test_displays_results_and_counters_if_tie(self):
+        round_ = Round(
+            player_1=Mock(die=Mock(value=0)),
+            player_2=Mock(die=Mock(value=0)),
+            display=Mock(),
+        )
+        round_.number = 1
+        round_.is_tie = True
+        round_.player_1.counter = 1
+        round_.player_2.counter = 2
+        round_.play()
+        round_.display.assert_any_call(
+            '*************************\n'
+            "Round 1: It's a Tie!\n"
+            '*************************\n'
+            '\n'
+            '~~~~ Player counters: ~~~~\n'
+            'Player 1: 1\n'
+            'Player 2: 2\n'
             '\n'
         )

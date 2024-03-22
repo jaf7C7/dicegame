@@ -39,9 +39,16 @@ class Round:
         else:
             self.is_tie = True
 
+        if self.winner == self.player_1:
+            result = 'WINNER: Player 1'
+        elif self.winner == self.player_2:
+            result = 'WINNER: Player 2'
+        elif self.is_tie:
+            result = "It's a Tie!"
+
         self.display(
             '*************************\n'
-            f'Round 1: WINNER: Player 1\n'
+            f'Round 1: {result}\n'
             '*************************\n'
             '\n'
             '~~~~ Player counters: ~~~~\n'
