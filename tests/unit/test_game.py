@@ -41,14 +41,17 @@ class TestPlay:
             game.play()
             assert game.round.play.call_count == 2
 
-    def test_update_counter_methods_called_if_not_a_tie(self, game):
-        game.round.winner = game.player_1
-        game.round.loser = game.player_2
+    @pytest.mark.parametrize('winner,loser', [('player_1', 'player_2')])
+    def test_update_counter_methods_called_if_not_a_tie(
+        self, game, winner, loser
+    ):
+        game.round.winner = getattr(game, winner)
+        game.round.loser = getattr(game, loser)
         with patch.object(game, '_game_over', side_effect=[False, True]):
             game.play()
             assert (
-                game.player_1.decrement_counter.called
-                and game.player_2.increment_counter.called
+                getattr(game, winner).decrement_counter.called
+                and getattr(game, loser).increment_counter.called
             )
 
 
