@@ -17,3 +17,12 @@ class TestDisplay:
             'Welcome To The Dice Game!\n'
             '=========================\n'
         )
+
+    def test_game_over(self, display):
+        display.game_over()
+        display.display.assert_called_with(
+            '===================\n'
+            '**** GAME OVER ****\n'
+            '===================\n'
+            '\n'
+        )

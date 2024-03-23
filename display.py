@@ -9,3 +9,11 @@ class Display:
             'Welcome To The Dice Game!\n'
             '=========================\n'
         )
+
+    def game_over(self):
+        self.display(
+            '===================\n'
+            '**** GAME OVER ****\n'
+            '===================\n'
+            '\n'
+        )
