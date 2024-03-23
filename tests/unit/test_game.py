@@ -41,7 +41,9 @@ class TestPlay:
             game.play()
             assert game.round.play.call_count == 2
 
-    @pytest.mark.parametrize('winner,loser', [('player_1', 'player_2')])
+    @pytest.mark.parametrize(
+        'winner,loser', [('player_1', 'player_2'), ('player_2', 'player_1')]
+    )
     def test_update_counter_methods_called_if_not_a_tie(
         self, game, winner, loser
     ):
