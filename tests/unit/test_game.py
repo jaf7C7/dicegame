@@ -41,6 +41,16 @@ class TestPlay:
             game.play()
             assert game.round.play.call_count == 2
 
+    def test_update_counter_methods_called_if_not_a_tie(self, game):
+        game.round.winner = game.player_1
+        game.round.loser = game.player_2
+        with patch.object(game, '_game_over', side_effect=[False, True]):
+            game.play()
+            assert (
+                game.player_1.decrement_counter.called
+                and game.player_2.increment_counter.called
+            )
+
 
 class TestGameOver:
 

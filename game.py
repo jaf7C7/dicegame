@@ -30,6 +30,8 @@ class Game:
 
         while not self._game_over():
             self.round.play()
+            self.round.winner.decrement_counter()
+            self.round.loser.increment_counter()
 
         self._display_game_over_message()
 
