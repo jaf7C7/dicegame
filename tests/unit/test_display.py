@@ -26,3 +26,11 @@ class TestDisplay:
             '===================\n'
             '\n'
         )
+
+    def test_game_results(self, display):
+        display.game_results(winner='Player 1')
+        display.display.assert_called_with(
+            'And the winner is...\n'
+            'Player 1!\n'
+            '\n'
+        )  # fmt: skip

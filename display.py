@@ -17,3 +17,10 @@ class Display:
             '===================\n'
             '\n'
         )
+
+    def game_results(self, winner):
+        self.display(
+            'And the winner is...\n'
+            f'{winner}!\n'
+            '\n'
+        )  # fmt: skip
