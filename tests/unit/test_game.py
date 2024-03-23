@@ -49,11 +49,25 @@ class TestPlay:
     ):
         game.round.winner = getattr(game, winner)
         game.round.loser = getattr(game, loser)
+        game.round.is_tie = False
         with patch.object(game, '_game_over', side_effect=[False, True]):
             game.play()
             assert (
                 getattr(game, winner).decrement_counter.called
                 and getattr(game, loser).increment_counter.called
+            )
+
+    def test_update_counter_methods_not_called_if_tie(self, game):
+        game.round.winner = None
+        game.round.loser = None
+        game.round.is_tie = True
+        with patch.object(game, '_game_over', side_effect=[False, True]):
+            game.play()
+            assert not (
+                game.player_1.increment_counter.called
+                and game.player_1.decrement_counter.called
+                and game.player_2.increment_counter.called
+                and game.player_2.decrement_counter.called
             )
 
 
