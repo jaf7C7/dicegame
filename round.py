@@ -40,13 +40,9 @@ class Round:
         if self.player_1.die.value > self.player_2.die.value:
             self._winner = self.player_1
             self._loser = self.player_2
-            self.player_1.decrement_counter()
-            self.player_2.increment_counter()
         elif self.player_1.die.value < self.player_2.die.value:
             self._winner = self.player_2
             self._loser = self.player_1
-            self.player_2.decrement_counter()
-            self.player_1.increment_counter()
         else:
             self._is_tie = True
 

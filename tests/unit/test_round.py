@@ -13,7 +13,7 @@ def round_():
     return round_
 
 
-class TestProtectedAttributes:
+class TestAttributes:
 
     @pytest.mark.parametrize('attr', (('winner', 'loser', 'is_tie')))
     def test_winner_loser_and_is_tie_attributes_are_protected(
@@ -21,9 +21,6 @@ class TestProtectedAttributes:
     ):
         with pytest.raises(AttributeError):
             setattr(round_, attr, 'Cheater!')
-
-
-class TestPlayers:
 
     def test_has_two_players(self, round_):
         assert hasattr(round_, 'player_1') and hasattr(round_, 'player_2')
@@ -75,35 +72,6 @@ class TestPlay:
             f'Player 2 rolled: 2\n'
         )  # fmt: skip
 
-    @pytest.mark.parametrize(
-        'p1_die,p2_die,p1_method,p2_method',
-        (
-            ('1', '2', 'increment_counter', 'decrement_counter'),
-            ('2', '1', 'decrement_counter', 'increment_counter'),
-        ),
-    )
-    def test_calls_update_counter_methods_on_players_if_not_a_tie(
-        self, round_, p1_die, p2_die, p1_method, p2_method
-    ):
-        round_.player_1.die.value = p1_die
-        round_.player_2.die.value = p2_die
-        round_.play()
-        assert (
-            getattr(round_.player_1, p1_method).called
-            and getattr(round_.player_2, p2_method).called
-        )
-
-    def test_update_counter_methods_not_called_if_round_tied(self, round_):
-        round_.player_1.die.value = 1
-        round_.player_2.die.value = 1
-        round_.play()
-        assert not (
-            round_.player_1.increment_counter.called
-            and round_.player_1.decrement_counter.called
-            and round_.player_2.increment_counter.called
-            and round_.player_2.decrement_counter.called
-        )
-
     def test_correct_attributes_set_if_tie(self, round_):
         round_.player_1.die.value = 1
         round_.player_2.die.value = 1
@@ -137,8 +105,8 @@ class TestPlay:
 
     def test_displays_results_and_counters_if_not_tie(self, round_):
         round_.number = 1
-        round_._winner = round_.player_1
-        round_._loser = round_.player_2
+        round_.player_1.die.value = 6
+        round_.player_2.die.value = 1
         round_.player_1.counter = 1
         round_.player_2.counter = 2
         round_.play()
@@ -155,7 +123,8 @@ class TestPlay:
 
     def test_displays_results_and_counters_if_tie(self, round_):
         round_.number = 1
-        round_._is_tie = True
+        round_.player_1.die.value = 1
+        round_.player_2.die.value = 1
         round_.player_1.counter = 1
         round_.player_2.counter = 2
         round_.play()
