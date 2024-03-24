@@ -34,3 +34,10 @@ class TestDisplay:
             'Player 1!\n'
             '\n'
         )  # fmt: skip
+
+    def test_round_welcome(self, display):
+        display.round_welcome()
+        display.display.assert_called_with(
+            'Round 1:\n'
+            '--------\n'
+        )  # fmt: skip

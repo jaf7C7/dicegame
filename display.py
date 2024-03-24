@@ -24,3 +24,9 @@ class Display:
             f'{winner}!\n'
             '\n'
         )  # fmt: skip
+
+    def round_welcome(self):
+        self.display(
+            'Round 1:\n'
+            '--------\n'
+        )  # fmt: skip
