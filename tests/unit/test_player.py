@@ -21,16 +21,13 @@ class TestDie:
         player.die.roll.assert_called()
 
 
-class TestIsCPU:
+class TestAttributes:
 
     def test_has_is_cpu_attribute(self):
         assert hasattr(Player(), 'is_cpu')
 
     def test_is_cpu_attr_is_boolean(self):
         assert isinstance(Player().is_cpu, bool)
-
-
-class TestCounter:
 
     def test_has_counter_attribute(self):
         assert hasattr(Player(), 'counter')
@@ -42,17 +39,14 @@ class TestCounter:
         with pytest.raises(AttributeError):
             Player().counter = 0
 
-    def test_has_increment_counter_attribute(self):
-        assert hasattr(Player(), 'increment_counter')
+
+class TestMethods:
 
     def test_increment_counter_adds_one_to_counter(self):
         player = Player()
         initial = player.counter
         player.increment_counter()
         assert player.counter == initial + 1
-
-    def test_has_decrement_counter_attribute(self):
-        assert hasattr(Player(), 'decrement_counter')
 
     def test_decrement_counter_removes_one_from_counter(self):
         player = Player()
