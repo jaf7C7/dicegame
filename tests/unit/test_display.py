@@ -50,11 +50,15 @@ class TestDisplay:
             f'Player 2 rolled: 2\n'
         )  # fmt: skip
 
-    def test_display_round_result(self, display):
-        display.display_round_result()
+    @pytest.mark.parametrize(
+        'winner,is_tie,message',
+        [('Player 1', False, 'WINNER: Player 1'), (None, True, "It's a Tie!")],
+    )
+    def test_display_round_result(self, display, winner, is_tie, message):
+        display.display_round_result(winner=winner, is_tie=is_tie)
         display.display.assert_called_with(
             '*************************\n'
-            'Round 1: WINNER: Player 1\n'
+            f'Round 1: {message}\n'
             '*************************\n'
             '\n'
         )

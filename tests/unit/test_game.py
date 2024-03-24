@@ -15,24 +15,17 @@ class TestPlay:
     def test_displays_welcome_message(self, game):
         game.player_1.counter = 0
         game.play()
-        game.display.assert_any_call(
-            '=========================\n'
-            'Welcome To The Dice Game!\n'
-            '=========================\n'
-        )
+        assert game.display.display_game_welcome.called
 
-    def test_displays_end_of_game_message(self, game):
+    def test_displays_game_over_message(self, game):
         game.player_1.counter = 0
         game.play()
-        game.display.assert_called_with(
-            '===================\n'
-            '**** GAME OVER ****\n'
-            '===================\n'
-            '\n'
-            'And the winner is...\n'
-            'Player 1!\n'
-            '\n'
-        )
+        assert game.display.display_game_over.called
+
+    def test_displays_game_results_message(self, game):
+        game.player_1.counter = 0
+        game.play()
+        assert game.display.display_game_results.called
 
     def test_calls_play_round_until_game_over(self, game):
         with patch.object(

@@ -26,7 +26,7 @@ class Game:
         self.game_winner = None
 
     def play(self):
-        self._display_game_welcome_message()
+        self.display.display_game_welcome()
 
         while not self._game_over():
             self.round.play()
@@ -34,7 +34,8 @@ class Game:
                 self.round.winner.decrement_counter()
                 self.round.loser.increment_counter()
 
-        self._display_game_over_message()
+        self.display.display_game_over()
+        self.display.display_game_results()
 
     def _game_over(self):
         self._set_game_winner()
@@ -47,21 +48,3 @@ class Game:
             self.game_winner = 'Player 2'
         else:
             self.game_winner = None
-
-    def _display_game_welcome_message(self):
-        self.display(
-            '=========================\n'
-            'Welcome To The Dice Game!\n'
-            '=========================\n'
-        )
-
-    def _display_game_over_message(self):
-        self.display(
-            '===================\n'
-            '**** GAME OVER ****\n'
-            '===================\n'
-            '\n'
-            'And the winner is...\n'
-            f'{self.game_winner}!\n'
-            '\n'
-        )

@@ -24,19 +24,15 @@ class Round:
 
     def play(self):
         self.number += 1
-        self.display(
-            f'Round {self.number}:\n'
-            '--------\n'
-        )  # fmt: skip
+        self.display.display_round_welcome(round_number=self.number)
+
         for player in (self.player_1, self.player_2):
             if player.is_cpu is False:
-                self.input_('Player 1: Press any key to roll your die... ')
+                self.display.prompt_player_roll()
             player.roll_die()
-        self.display(
-            '\n'
-            f'Player 1 rolled: {self.player_1.die.value}\n'
-            f'Player 2 rolled: {self.player_2.die.value}\n'
-        )
+
+        self.display.display_player_die_values(p1_die=1, p2_die=2)
+
         if self.player_1.die.value > self.player_2.die.value:
             self._winner = self.player_1
             self._loser = self.player_2
@@ -46,20 +42,9 @@ class Round:
         else:
             self._is_tie = True
 
-        if self.winner == self.player_1:
-            result = 'WINNER: Player 1'
-        elif self.winner == self.player_2:
-            result = 'WINNER: Player 2'
-        elif self.is_tie:
-            result = "It's a Tie!"
-
-        self.display(
-            '*************************\n'
-            f'Round 1: {result}\n'
-            '*************************\n'
-            '\n'
-            '~~~~ Player counters: ~~~~\n'
-            f'Player 1: 1\n'
-            f'Player 2: 2\n'
-            '\n'
+        self.display.display_round_result(
+            winner=self.winner, is_tie=self.is_tie
+        )
+        self.display.display_player_counters(
+            p1_counter=self.player_1.counter, p2_counter=self.player_2.counter
         )

@@ -34,10 +34,7 @@ class TestPlay:
 
     def test_displays_round_number_at_start_of_round(self, round_):
         round_.play()
-        round_.display.assert_any_call(
-            'Round 1:\n'
-            '--------\n'
-        )  # fmt: skip
+        assert round_.display.display_round_welcome.called
 
     def test_round_number_is_incremented_each_time_play_is_called(
         self, round_
@@ -58,19 +55,15 @@ class TestPlay:
         round_.player_1.is_cpu = False
         round_.player_2.is_cpu = True
         round_.play()
-        round_.input_.assert_called_once_with(
-            'Player 1: Press any key to roll your die... '
-        )
+        assert round_.display.prompt_player_roll.called
 
     def test_displays_results_of_each_die_roll(self, round_):
         round_.player_1.die.value = 1
         round_.player_2.die.value = 2
         round_.play()
-        round_.display.assert_any_call(
-            '\n'
-            f'Player 1 rolled: 1\n'
-            f'Player 2 rolled: 2\n'
-        )  # fmt: skip
+        round_.display.display_player_die_values.assert_called_with(
+            p1_die=1, p2_die=2
+        )
 
     def test_correct_attributes_set_if_tie(self, round_):
         round_.player_1.die.value = 1
@@ -110,15 +103,11 @@ class TestPlay:
         round_.player_1.counter = 1
         round_.player_2.counter = 2
         round_.play()
-        round_.display.assert_any_call(
-            '*************************\n'
-            'Round 1: WINNER: Player 1\n'
-            '*************************\n'
-            '\n'
-            '~~~~ Player counters: ~~~~\n'
-            'Player 1: 1\n'
-            'Player 2: 2\n'
-            '\n'
+        round_.display.display_round_result.assert_called_with(
+            winner=round_.player_1, is_tie=False
+        )
+        round_.display.display_player_counters.assert_called_with(
+            p1_counter=1, p2_counter=2
         )
 
     def test_displays_results_and_counters_if_tie(self, round_):
@@ -128,13 +117,9 @@ class TestPlay:
         round_.player_1.counter = 1
         round_.player_2.counter = 2
         round_.play()
-        round_.display.assert_any_call(
-            '*************************\n'
-            "Round 1: It's a Tie!\n"
-            '*************************\n'
-            '\n'
-            '~~~~ Player counters: ~~~~\n'
-            'Player 1: 1\n'
-            'Player 2: 2\n'
-            '\n'
+        round_.display.display_round_result.assert_called_with(
+            winner=None, is_tie=True
+        )
+        round_.display.display_player_counters.assert_called_with(
+            p1_counter=1, p2_counter=2
         )
