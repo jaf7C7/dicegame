@@ -37,3 +37,15 @@ class Display:
             f'Player 1 rolled: 1\n'
             f'Player 2 rolled: 2\n'
         )  # fmt: skip
+
+    def round_results(self):
+        self.display(
+            '*************************\n'
+            'Round 1: WINNER: Player 1\n'
+            '*************************\n'
+            '\n'
+            '~~~~ Player counters: ~~~~\n'
+            'Player 1: 1\n'
+            'Player 2: 2\n'
+            '\n'
+        )
