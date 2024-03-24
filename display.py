@@ -45,3 +45,6 @@ class Display:
             f'Player 2: {p2_counter}\n'
             '\n'
         )
+
+    def prompt_player_roll(self, player):
+        self.display('Player 1: Press any key to roll your die... ')

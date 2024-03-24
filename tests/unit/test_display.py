@@ -68,3 +68,9 @@ class TestDisplay:
         display.display.assert_called_with(
             '~~~~ Player counters: ~~~~\n' 'Player 1: 1\n' 'Player 2: 2\n' '\n'
         )
+
+    def test_prompt_player_roll(self, display):
+        display.prompt_player_roll(player=1)
+        display.display.assert_called_with(
+            'Player 1: Press any key to roll your die... '
+        )
