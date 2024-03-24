@@ -30,3 +30,10 @@ class Display:
             'Round 1:\n'
             '--------\n'
         )  # fmt: skip
+
+    def player_die_values(self):
+        self.display(
+            '\n'
+            f'Player 1 rolled: 1\n'
+            f'Player 2 rolled: 2\n'
+        )  # fmt: skip

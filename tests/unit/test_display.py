@@ -41,3 +41,11 @@ class TestDisplay:
             'Round 1:\n'
             '--------\n'
         )  # fmt: skip
+
+    def test_player_die_values(self, display):
+        display.player_die_values()
+        display.display.assert_called_with(
+            '\n'
+            f'Player 1 rolled: 1\n'
+            f'Player 2 rolled: 2\n'
+        )  # fmt: skip
