@@ -13,12 +13,7 @@ set --
 while IFS= read -r line
 do
     case "$line" in
-    [MA]' '*)  # Adding or modifying files.
-        # Populate argv with staged python files.
-        if test -n "${line%%*.py}"
-        then
-            continue
-        fi
+    [MA]' '*.py)  # Adding or modifying python files.
         pyfile="${line#[MA]'  '}"
         set -- "$@" "$pyfile"
         ;;
