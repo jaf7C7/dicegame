@@ -42,6 +42,10 @@ class TestAttributes:
 
 class TestMethods:
 
+    def test___str___returns_player_number(self):
+        player = Player(number=1)
+        assert str(player) == 'Player 1'
+
     def test_increment_counter_adds_one_to_counter(self):
         player = Player()
         initial = player.counter

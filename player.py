@@ -3,12 +3,16 @@ from die import Die
 
 class Player:
 
-    def __init__(self, die=None, is_cpu=False):
+    def __init__(self, die=None, is_cpu=False, number=None):
         if die is None:
             die = Die()
         self._die = die
         self.is_cpu = is_cpu
         self._counter = 5
+        self.number = number
+
+    def __str__(self):
+        return f'Player {self.number}'
 
     @property
     def die(self):
