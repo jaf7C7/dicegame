@@ -2,6 +2,10 @@ from round import Round
 from player import Player
 
 
+class PlayerError(Exception):
+    pass
+
+
 class Game:
     """A game to be played by two players over a number of rounds"""
 
@@ -32,6 +36,8 @@ class Game:
         self.players.append(player)
 
     def game_over(self):
+        if len(self.players) < 2:
+            raise PlayerError('Two players are required to play.')
         self.winner = None
         for p in self.players:
             if p.counter == 0:

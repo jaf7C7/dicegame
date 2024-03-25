@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock, patch
-from game import Game
+from game import Game, PlayerError
 
 
 @pytest.fixture
@@ -65,6 +65,11 @@ class TestPlay:
                 and game.players[1].increment_counter.called
                 and game.players[1].decrement_counter.called
             )
+
+    def test_fails_if_has_no_players(self, game):
+        with pytest.raises(PlayerError):
+            game.players = []
+            game.play()
 
 
 class TestGameOver:
