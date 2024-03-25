@@ -10,6 +10,13 @@ def game():
     )
 
 
+class TestPlayers:
+
+    def test_sets_player_number(self):
+        game = Game(player_1=Mock(number=10), player_2=Mock(number=3))
+        assert game.player_1.number == 1 and game.player_2.number == 2
+
+
 class TestPlay:
 
     def test_displays_welcome_message(self, game):
