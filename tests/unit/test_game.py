@@ -22,17 +22,17 @@ class TestPlay:
     def test_displays_welcome_message(self, game):
         game.players[0].counter = 0
         game.play()
-        assert game.display.display_game_welcome.called
+        assert game.display.game_welcome.called
 
     def test_displays_game_over_message(self, game):
         game.players[0].counter = 0
         game.play()
-        assert game.display.display_game_over.called
+        assert game.display.game_over.called
 
     def test_displays_game_results_message(self, game):
         game.players[0].counter = 0
         game.play()
-        assert game.display.display_game_results.called
+        assert game.display.game_results.called
 
     def test_calls_play_round_until_game_over(self, game):
         with patch.object(game, 'game_over', side_effect=[False, False, True]):

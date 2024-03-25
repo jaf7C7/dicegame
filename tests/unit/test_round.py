@@ -34,7 +34,7 @@ class TestPlay:
 
     def test_displays_round_number_at_start_of_round(self, round_):
         round_.play()
-        assert round_.display.display_round_welcome.called
+        assert round_.display.round_welcome.called
 
     def test_round_number_is_incremented_each_time_play_is_called(
         self, round_
@@ -55,15 +55,13 @@ class TestPlay:
         round_.player_1.is_cpu = False
         round_.player_2.is_cpu = True
         round_.play()
-        assert round_.display.prompt_player_roll.called
+        assert round_.display.prompt_roll.called
 
     def test_displays_results_of_each_die_roll(self, round_):
         round_.player_1.die.value = 1
         round_.player_2.die.value = 2
         round_.play()
-        round_.display.display_player_die_values.assert_called_with(
-            p1_die=1, p2_die=2
-        )
+        round_.display.player_die_values.assert_called_with(p1_die=1, p2_die=2)
 
     def test_correct_attributes_set_if_tie(self, round_):
         round_.player_1.die.value = 1
@@ -103,10 +101,10 @@ class TestPlay:
         round_.player_1.counter = 1
         round_.player_2.counter = 2
         round_.play()
-        round_.display.display_round_result.assert_called_with(
+        round_.display.round_result.assert_called_with(
             winner=round_.player_1, is_tie=False
         )
-        round_.display.display_player_counters.assert_called_with(
+        round_.display.player_counters.assert_called_with(
             p1_counter=1, p2_counter=2
         )
 
@@ -117,9 +115,9 @@ class TestPlay:
         round_.player_1.counter = 1
         round_.player_2.counter = 2
         round_.play()
-        round_.display.display_round_result.assert_called_with(
+        round_.display.round_result.assert_called_with(
             winner=None, is_tie=True
         )
-        round_.display.display_player_counters.assert_called_with(
+        round_.display.player_counters.assert_called_with(
             p1_counter=1, p2_counter=2
         )
