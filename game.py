@@ -17,15 +17,8 @@ class Game:
         self.player_2 = player_2
         self.player_2.number = 2
         self.display = display
-        if round_ is None:
-            round_ = Round(
-                self.player_1,
-                self.player_2,
-                display=self.display,
-                input_=input,
-            )
         self.round = round_
-        self.game_winner = None
+        self.winner = None
 
     def play(self):
         self.display.display_game_welcome()
@@ -40,13 +33,11 @@ class Game:
         self.display.display_game_results()
 
     def _game_over(self):
-        self._set_game_winner()
-        return self.game_winner is not None
-
-    def _set_game_winner(self):
         if self.player_1.counter == 0:
-            self.game_winner = 'Player 1'
+            self.winner = 'Player 1'
         elif self.player_2.counter == 0:
-            self.game_winner = 'Player 2'
+            self.winner = 'Player 2'
         else:
-            self.game_winner = None
+            self.winner = None
+
+        return self.winner is not None
