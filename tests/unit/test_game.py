@@ -5,32 +5,32 @@ from game import Game
 
 @pytest.fixture
 def game():
-    return Game(
-        player_1=Mock(), player_2=Mock(), round_=Mock(), display=Mock()
-    )
+    game = Game(round_=Mock(), display=Mock())
+    game.add_player(Mock())
+    game.add_player(Mock())
+    return game
 
 
 class TestPlayers:
 
-    def test_sets_player_number(self):
-        game = Game(player_1=Mock(number=10), player_2=Mock(number=3))
-        assert game.player_1.number == 1 and game.player_2.number == 2
+    def test_sets_player_number(self, game):
+        assert game.players[0].number == 1 and game.players[1].number == 2
 
 
 class TestPlay:
 
     def test_displays_welcome_message(self, game):
-        game.player_1.counter = 0
+        game.players[0].counter = 0
         game.play()
         assert game.display.display_game_welcome.called
 
     def test_displays_game_over_message(self, game):
-        game.player_1.counter = 0
+        game.players[0].counter = 0
         game.play()
         assert game.display.display_game_over.called
 
     def test_displays_game_results_message(self, game):
-        game.player_1.counter = 0
+        game.players[0].counter = 0
         game.play()
         assert game.display.display_game_results.called
 
@@ -41,20 +41,18 @@ class TestPlay:
             game.play()
             assert game.round.play.call_count == 2
 
-    @pytest.mark.parametrize(
-        'winner,loser', [('player_1', 'player_2'), ('player_2', 'player_1')]
-    )
+    @pytest.mark.parametrize('winner,loser', [(0, 1), (1, 0)])
     def test_update_counter_methods_called_if_not_a_tie(
         self, game, winner, loser
     ):
-        game.round.winner = getattr(game, winner)
-        game.round.loser = getattr(game, loser)
+        game.round.winner = game.players[winner]
+        game.round.loser = game.players[loser]
         game.round.is_tie = False
         with patch.object(game, '_game_over', side_effect=[False, True]):
             game.play()
             assert (
-                getattr(game, winner).decrement_counter.called
-                and getattr(game, loser).increment_counter.called
+                game.round.winner.decrement_counter.called
+                and game.round.loser.increment_counter.called
             )
 
     def test_update_counter_methods_not_called_if_tie(self, game):
@@ -64,19 +62,20 @@ class TestPlay:
         with patch.object(game, '_game_over', side_effect=[False, True]):
             game.play()
             assert not (
-                game.player_1.increment_counter.called
-                and game.player_1.decrement_counter.called
-                and game.player_2.increment_counter.called
-                and game.player_2.decrement_counter.called
+                game.players[0].increment_counter.called
+                and game.players[0].decrement_counter.called
+                and game.players[1].increment_counter.called
+                and game.players[1].decrement_counter.called
             )
 
 
 class TestGameOver:
 
     def test_returns_true_when_any_player_counter_is_zero(self, game):
-        game.player_1.counter = 0
+        game.add_player(Mock())
+        game.players[2].counter = 0
         assert game._game_over() is True
 
     def test_returns_false_when_neither_player_counter_is_zero(self, game):
-        assert game.player_1.counter != 0 and game.player_2.counter != 0
+        assert all(p.counter != 0 for p in game.players)
         assert game._game_over() is False

@@ -7,15 +7,10 @@ class Game:
 
     def __init__(
         self,
-        player_1=Player(),
-        player_2=Player(is_cpu=True),
         display=print,
         round_=None,
     ):
-        self.player_1 = player_1
-        self.player_1.number = 1
-        self.player_2 = player_2
-        self.player_2.number = 2
+        self.players = []
         self.display = display
         self.round = round_
         self.winner = None
@@ -32,12 +27,13 @@ class Game:
         self.display.display_game_over()
         self.display.display_game_results()
 
-    def _game_over(self):
-        if self.player_1.counter == 0:
-            self.winner = 'Player 1'
-        elif self.player_2.counter == 0:
-            self.winner = 'Player 2'
-        else:
-            self.winner = None
+    def add_player(self, player):
+        player.number = len(self.players) + 1
+        self.players.append(player)
 
+    def _game_over(self):
+        self.winner = None
+        for p in self.players:
+            if p.counter == 0:
+                self.winner = p
         return self.winner is not None
