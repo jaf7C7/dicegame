@@ -18,7 +18,7 @@ class Game:
     def play(self):
         self.display.display_game_welcome()
 
-        while not self._game_over():
+        while not self.game_over():
             self.round.play()
             if not self.round.is_tie:
                 self.round.winner.decrement_counter()
@@ -31,7 +31,7 @@ class Game:
         player.number = len(self.players) + 1
         self.players.append(player)
 
-    def _game_over(self):
+    def game_over(self):
         self.winner = None
         for p in self.players:
             if p.counter == 0:

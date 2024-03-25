@@ -35,9 +35,7 @@ class TestPlay:
         assert game.display.display_game_results.called
 
     def test_calls_play_round_until_game_over(self, game):
-        with patch.object(
-            game, '_game_over', side_effect=[False, False, True]
-        ):
+        with patch.object(game, 'game_over', side_effect=[False, False, True]):
             game.play()
             assert game.round.play.call_count == 2
 
@@ -48,7 +46,7 @@ class TestPlay:
         game.round.winner = game.players[winner]
         game.round.loser = game.players[loser]
         game.round.is_tie = False
-        with patch.object(game, '_game_over', side_effect=[False, True]):
+        with patch.object(game, 'game_over', side_effect=[False, True]):
             game.play()
             assert (
                 game.round.winner.decrement_counter.called
@@ -59,7 +57,7 @@ class TestPlay:
         game.round.winner = None
         game.round.loser = None
         game.round.is_tie = True
-        with patch.object(game, '_game_over', side_effect=[False, True]):
+        with patch.object(game, 'game_over', side_effect=[False, True]):
             game.play()
             assert not (
                 game.players[0].increment_counter.called
@@ -74,8 +72,8 @@ class TestGameOver:
     def test_returns_true_when_any_player_counter_is_zero(self, game):
         game.add_player(Mock())
         game.players[2].counter = 0
-        assert game._game_over() is True
+        assert game.game_over() is True
 
     def test_returns_false_when_neither_player_counter_is_zero(self, game):
         assert all(p.counter != 0 for p in game.players)
-        assert game._game_over() is False
+        assert game.game_over() is False
