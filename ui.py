@@ -1,7 +1,8 @@
 class UI:
 
-    def __init__(self, display):
+    def __init__(self, display, input_):
         self.display = display
+        self.input_ = input_
 
     def display_game_welcome(self):
         self.display(
@@ -44,4 +45,4 @@ class UI:
             self.display(f'{player}: {player.counter}\n')
 
     def get_user_input(self, player):
-        self.display(f'{player}: Press any key to roll your die... ')
+        self.input_(f'{player}: Press any key to roll your die... ')

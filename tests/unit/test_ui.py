@@ -5,7 +5,7 @@ from ui import UI
 
 @pytest.fixture
 def ui():
-    return UI(display=Mock())
+    return UI(display=Mock(), input_=Mock())
 
 
 @pytest.fixture
@@ -72,9 +72,12 @@ class TestDisplay:
         ui.display.assert_any_call('Player 1: 1\n')
         ui.display.assert_any_call('Player 2: 2\n')
 
+
+class TestInput:
+
     def test_get_user_input(self, ui):
         p1 = Mock(__str__=Mock(return_value='Player 1'))
         ui.get_user_input(player=p1)
-        ui.display.assert_called_with(
+        ui.input_.assert_called_with(
             'Player 1: Press any key to roll your die... '
         )
