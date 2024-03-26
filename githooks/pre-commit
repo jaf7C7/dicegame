@@ -8,18 +8,19 @@
 #     - There are files with inconsistent formatting
 #     - There are failing tests
 #
-set --
+set -e --
 
 while IFS= read -r line
 do
     case "$line" in
-    [MA]' '*.py)  # Adding or modifying python files.
-        pyfile="${line#[MA]'  '}"
-        set -- "$@" "$pyfile"
+    [MADR]' '*)
+        case "$line" in
+        *.py)
+            pyfile="${line#[MADR]'  '}"
+            set -- "$@" "$pyfile"
+        esac
         ;;
-    'D '*)        # Deleting files.
-        ;;
-    '')           # Not committing anything, e.g. `--amend`.
+    '')
         exit 0
         ;;
     *)
@@ -43,12 +44,8 @@ EOF
 if test $# -gt 0 && ! black --quiet --check "$@"
 then
     black "$@"
-    cat <<\EOF
-
-Please review the formatted files and stage the new changes before committing.
-
-EOF
-    exit 1
+    git add "$@"
+    exit 0
 fi
 
 if ! python -m pytest --quiet
