@@ -1,8 +1,14 @@
 class Round:
 
-    def __init__(self, player_1, player_2, display=print, input_=input):
-        self.player_1 = player_1
-        self.player_2 = player_2
+    def __init__(
+        self,
+        players=None,
+        display=print,
+        input_=input,
+    ):
+        if players is None:
+            players = []
+        self.players = players
         self.number = 0
         self.display = display
         self.input_ = input_
@@ -23,26 +29,31 @@ class Round:
         return self._is_tie
 
     def play(self):
+        if len(self.players) < 2:
+            raise AttributeError('Two or more players are required to play.')
+
         self.number += 1
         self.display.round_welcome(round_number=self.number)
 
-        for player in (self.player_1, self.player_2):
+        for player in self.players:
             if player.is_cpu is False:
                 self.display.prompt_roll()
             player.roll_die()
 
-        self.display.player_die_values(p1_die=1, p2_die=2)
+        self.display.player_die_values(self.players)
 
-        if self.player_1.die.value > self.player_2.die.value:
-            self._winner = self.player_1
-            self._loser = self.player_2
-        elif self.player_1.die.value < self.player_2.die.value:
-            self._winner = self.player_2
-            self._loser = self.player_1
+        highest_rolling_players = [
+            p
+            for p in self.players
+            if all(p.die.value >= q.die.value for q in self.players)
+        ]
+
+        if len(highest_rolling_players) == 1:
+            self._winner = highest_rolling_players[0]
+            self._is_tie = False
         else:
+            self._winner = None
             self._is_tie = True
 
         self.display.round_result(winner=self.winner, is_tie=self.is_tie)
-        self.display.player_counters(
-            p1_counter=self.player_1.counter, p2_counter=self.player_2.counter
-        )
+        self.display.player_counters(self.players)
