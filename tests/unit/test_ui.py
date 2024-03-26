@@ -30,17 +30,12 @@ class TestDisplay:
     def test_winner(self, ui):
         ui.display_winner(winner='Player 1')
         ui.display.assert_called_with(
-            'And the winner is...\n'
-            'Player 1!\n'
-            '\n'
-        )  # fmt: skip
+            'And the winner is...\n' 'Player 1!\n' '\n'
+        )
 
     def test_round_welcome(self, ui):
         ui.display_round_welcome(round_number=1)
-        ui.display.assert_called_with(
-            'Round 1:\n'
-            '--------\n'
-        )  # fmt: skip
+        ui.display.assert_called_with('Round 1:\n' '--------\n')
 
     def test_player_die_values(self, ui):
         p1 = Mock(die=Mock(value=1), __str__=Mock(return_value='Player 1'))
