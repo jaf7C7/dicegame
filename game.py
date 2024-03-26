@@ -2,10 +2,6 @@ from round import Round
 from player import Player
 
 
-class PlayerError(Exception):
-    pass
-
-
 class Game:
     """A game to be played by two or more players over a number of rounds"""
 
@@ -33,7 +29,7 @@ class Game:
 
     def game_over(self):
         if len(self.players) < 2:
-            raise PlayerError('Two or more players are required to play.')
+            raise AttributeError('Two or more players are required to play.')
         self.winner = None
         for p in self.players:
             if p.counter == 0:

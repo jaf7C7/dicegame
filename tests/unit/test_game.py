@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import Mock, patch
-from game import Game, PlayerError
+from game import Game
 
 
 @pytest.fixture
@@ -67,7 +67,7 @@ class TestPlay:
             )
 
     def test_fails_if_has_no_players(self, game):
-        with pytest.raises(PlayerError):
+        with pytest.raises(AttributeError):
             game.players = []
             game.play()
 

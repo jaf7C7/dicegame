@@ -25,7 +25,6 @@ class Round:
     def play(self):
         if len(self.players) < 2:
             raise AttributeError('Two or more players are required to play.')
-
         self.number += 1
         self.ui.display_round_welcome(round_number=self.number)
 
@@ -35,7 +34,6 @@ class Round:
             player.roll_die()
 
         self.ui.display_player_die_values(self.players)
-
         highest_rolling_players = [
             p
             for p in self.players

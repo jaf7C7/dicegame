@@ -30,21 +30,18 @@ class UI:
             self.display(f'{player} rolled: {player.die.value}\n')
 
     def display_round_result(self, winner, is_tie):
-        msg = "It's a Tie!" if is_tie else f'WINNER: {winner}'
+        result = "It's a Tie!" if is_tie else f'WINNER: {winner}'
         self.display(
             '*************************\n'
-            f'Round 1: {msg}\n'
+            f'Round 1: {result}\n'
             '*************************\n'
             '\n'
         )
 
-    def display_player_counters(self, p1_counter, p2_counter):
-        self.display(
-            '~~~~ Player counters: ~~~~\n'
-            f'Player 1: {p1_counter}\n'
-            f'Player 2: {p2_counter}\n'
-            '\n'
-        )
+    def display_player_counters(self, players):
+        self.display('~~~~ Player counters: ~~~~\n')
+        for player in players:
+            self.display(f'{player}: {player.counter}\n')
 
     def display_roll_prompt(self, player):
         self.display(f'{player}: Press any key to roll your die... ')
