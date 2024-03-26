@@ -45,7 +45,6 @@ class TestPlay:
         assert all(p.roll_die.called for p in round_.players)
 
     def test_requires_input_from_human_player_to_roll(self, round_):
-        round_.play()
         round_.players[0].is_cpu = False
         round_.players[1].is_cpu = True
         round_.play()
@@ -53,10 +52,11 @@ class TestPlay:
 
     def test_displays_results_of_each_die_roll(self, round_):
         round_.play()
-        round_.play()
         round_.ui.display_player_die_values.assert_called_with(round_.players)
 
     def test_correct_attributes_set_if_tie(self, round_):
+        round_.players[0].die.value = 1
+        round_.players[1].die.value = 1
         round_.play()
         assert round_.winner is None
         assert round_.loser is None
