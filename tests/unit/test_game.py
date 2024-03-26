@@ -16,6 +16,12 @@ class TestPlayers:
     def test_sets_player_number(self, game):
         assert game.players[0].number == 1 and game.players[1].number == 2
 
+    @pytest.mark.parametrize('players', ([Mock()], []))
+    def test_fails_if_has_less_than_two_players(self, game, players):
+        with pytest.raises(AttributeError):
+            game.players = players
+            game.play()
+
 
 class TestPlay:
 
@@ -65,11 +71,6 @@ class TestPlay:
                 and game.players[1].increment_counter.called
                 and game.players[1].decrement_counter.called
             )
-
-    def test_fails_if_has_no_players(self, game):
-        with pytest.raises(AttributeError):
-            game.players = []
-            game.play()
 
 
 class TestGameOver:
