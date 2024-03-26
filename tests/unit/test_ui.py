@@ -56,7 +56,7 @@ class TestDisplay:
         [('Player 1', False, 'WINNER: Player 1'), (None, True, "It's a Tie!")],
     )
     def test_round_result(self, ui, winner, is_tie, message):
-        ui.display_round_result(winner=winner, is_tie=is_tie)
+        ui.display_round_result(winner=winner)
         ui.display.assert_called_with(
             '*************************\n'
             f'Round 1: {message}\n'

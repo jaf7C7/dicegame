@@ -29,8 +29,8 @@ class UI:
         for player in players:
             self.display(f'{player} rolled: {player.die.value}\n')
 
-    def display_round_result(self, winner, is_tie):
-        result = "It's a Tie!" if is_tie else f'WINNER: {winner}'
+    def display_round_result(self, winner):
+        result = f'WINNER: {winner}' if winner is not None else "It's a Tie!"
         self.display(
             '*************************\n'
             f'Round 1: {result}\n'
