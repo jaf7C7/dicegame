@@ -43,5 +43,5 @@ class UI:
         for player in players:
             self.display(f'{player}: {player.counter}\n')
 
-    def display_roll_prompt(self, player):
+    def get_user_input(self, player):
         self.display(f'{player}: Press any key to roll your die... ')

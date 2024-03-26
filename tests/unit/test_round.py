@@ -49,7 +49,7 @@ class TestPlay:
         round_.players[0].is_cpu = False
         round_.players[1].is_cpu = True
         round_.play()
-        assert round_.ui.display_roll_prompt.called
+        assert round_.ui.get_user_input.called
 
     def test_displays_results_of_each_die_roll(self, round_):
         round_.play()

@@ -72,9 +72,9 @@ class TestDisplay:
         ui.display.assert_any_call('Player 1: 1\n')
         ui.display.assert_any_call('Player 2: 2\n')
 
-    def test_roll_prompt(self, ui):
+    def test_get_user_input(self, ui):
         p1 = Mock(__str__=Mock(return_value='Player 1'))
-        ui.display_roll_prompt(player=p1)
+        ui.get_user_input(player=p1)
         ui.display.assert_called_with(
             'Player 1: Press any key to roll your die... '
         )

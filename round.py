@@ -30,7 +30,7 @@ class Round:
 
         for player in self.players:
             if player.is_cpu is False:
-                self.ui.display_roll_prompt()
+                self.ui.get_user_input()
             player.roll_die()
 
         self.ui.display_player_die_values(self.players)
