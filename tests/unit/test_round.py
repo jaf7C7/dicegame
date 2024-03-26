@@ -7,7 +7,7 @@ from round import Round
 def round_():
     p1 = Mock(die=Mock(value=0))
     p2 = Mock(die=Mock(value=0))
-    return Round(players=[p1, p2], display=Mock())
+    return Round(players=[p1, p2], ui=Mock())
 
 
 class TestAttributes:
@@ -29,7 +29,7 @@ class TestPlay:
 
     def test_displays_round_number_at_start_of_round(self, round_):
         round_.play()
-        assert round_.display.round_welcome.called
+        assert round_.ui.display_round_welcome.called
 
     def test_round_number_is_incremented_each_time_play_is_called(
         self, round_
@@ -49,12 +49,12 @@ class TestPlay:
         round_.players[0].is_cpu = False
         round_.players[1].is_cpu = True
         round_.play()
-        assert round_.display.prompt_roll.called
+        assert round_.ui.display_roll_prompt.called
 
     def test_displays_results_of_each_die_roll(self, round_):
         round_.play()
         round_.play()
-        round_.display.player_die_values.assert_called_with(round_.players)
+        round_.ui.display_player_die_values.assert_called_with(round_.players)
 
     def test_correct_attributes_set_if_tie(self, round_):
         round_.play()
@@ -84,17 +84,17 @@ class TestPlay:
         round_.players[1].die.value = 1
         round_.number = 1
         round_.play()
-        round_.display.round_result.assert_called_with(
+        round_.ui.display_round_result.assert_called_with(
             winner=round_.players[0], is_tie=False
         )
-        round_.display.player_counters.assert_called_with(round_.players)
+        round_.ui.display_player_counters.assert_called_with(round_.players)
 
     def test_displays_results_and_counters_if_tie(self, round_):
         round_.players[0].die.value = 1
         round_.players[1].die.value = 1
         round_.number = 1
         round_.play()
-        round_.display.round_result.assert_called_with(
+        round_.ui.display_round_result.assert_called_with(
             winner=None, is_tie=True
         )
-        round_.display.player_counters.assert_called_with(round_.players)
+        round_.ui.display_player_counters.assert_called_with(round_.players)

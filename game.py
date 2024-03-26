@@ -9,14 +9,14 @@ class PlayerError(Exception):
 class Game:
     """A game to be played by two or more players over a number of rounds"""
 
-    def __init__(self, display=None, round_=None):
+    def __init__(self, ui=None, round_=None):
         self.players = []
-        self.display = display
+        self.ui = ui
         self.round = round_
         self.winner = None
 
     def play(self):
-        self.display.game_welcome()
+        self.ui.display_game_welcome()
 
         while not self.game_over():
             self.round.play()
@@ -24,8 +24,8 @@ class Game:
                 self.round.winner.decrement_counter()
                 self.round.loser.increment_counter()
 
-        self.display.game_over()
-        self.display.game_results()
+        self.ui.display_game_over()
+        self.ui.display_game_results()
 
     def add_player(self, player):
         player.number = len(self.players) + 1

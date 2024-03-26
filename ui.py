@@ -1,16 +1,16 @@
-class Display:
+class UI:
 
     def __init__(self, display):
         self.display = display
 
-    def game_welcome(self):
+    def display_game_welcome(self):
         self.display(
             '=========================\n'
             'Welcome To The Dice Game!\n'
             '=========================\n'
         )
 
-    def game_over(self):
+    def display_game_over(self):
         self.display(
             '===================\n'
             '**** GAME OVER ****\n'
@@ -18,18 +18,18 @@ class Display:
             '\n'
         )
 
-    def winner(self, winner):
+    def display_winner(self, winner):
         self.display('And the winner is...\n' f'{winner}!\n' '\n')
 
-    def round_welcome(self, round_number):
+    def display_round_welcome(self, round_number):
         self.display(f'Round {round_number}:\n' '--------\n')
 
-    def player_die_values(self, p1_die, p2_die):
-        self.display(
-            '\n' f'Player 1 rolled: {p1_die}\n' f'Player 2 rolled: {p2_die}\n'
-        )
+    def display_player_die_values(self, players):
+        self.display('\n')
+        for player in players:
+            self.display(f'{player} rolled: {player.die.value}\n')
 
-    def round_result(self, winner, is_tie):
+    def display_round_result(self, winner, is_tie):
         msg = "It's a Tie!" if is_tie else f'WINNER: {winner}'
         self.display(
             '*************************\n'
@@ -38,7 +38,7 @@ class Display:
             '\n'
         )
 
-    def player_counters(self, p1_counter, p2_counter):
+    def display_player_counters(self, p1_counter, p2_counter):
         self.display(
             '~~~~ Player counters: ~~~~\n'
             f'Player 1: {p1_counter}\n'
@@ -46,5 +46,5 @@ class Display:
             '\n'
         )
 
-    def prompt_roll(self, player):
+    def display_roll_prompt(self, player):
         self.display(f'{player}: Press any key to roll your die... ')
