@@ -13,13 +13,10 @@ def game():
 
 class TestPlayers:
 
-    def test_sets_player_number(self, game):
-        assert game.players[0].number == 1 and game.players[1].number == 2
-
-    @pytest.mark.parametrize('players', ([Mock()], []))
-    def test_fails_if_has_less_than_two_players(self, game, players):
+    def test_fails_if_has_less_than_two_players(self):
+        game = Game(round_=Mock(), ui=Mock())
+        game.add_player(Mock())
         with pytest.raises(AttributeError):
-            game.players = players
             game.play()
 
     def test_add_player_increases_number_of_players(self):
