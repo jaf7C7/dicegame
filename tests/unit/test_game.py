@@ -35,6 +35,12 @@ class TestPlayers:
         game.add_player(player)
         assert player.number == 1
 
+    def test_add_player_can_add_cpu_player(self):
+        game = Game(round_=Mock(), ui=Mock())
+        assert len(game.players) == 0
+        game.add_player(Mock(), is_cpu=True)
+        assert game.players[0].is_cpu is True
+
 
 class TestPlay:
 

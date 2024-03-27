@@ -36,9 +36,10 @@ class Game:
         self.ui.display_game_over()
         self.ui.display_winner(self.winner)
 
-    def add_player(self, player):
+    def add_player(self, player, is_cpu=False):
         """Add a new player to the game."""
         player.number = len(self.players) + 1
+        player.is_cpu = is_cpu
         self.players.append(player)
 
     def game_over(self):
