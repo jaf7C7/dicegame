@@ -13,11 +13,12 @@ class Game:
     player is declared the winner.
     """
 
-    def __init__(self, ui=None, round_=None):
+    def __init__(self, ui=None, round_=None, player=None):
         self.players = []
         self.ui = ui
         self.round = round_
         self.winner = None
+        self.player = player
 
     def play(self):
         """Start playing the game."""
@@ -36,10 +37,9 @@ class Game:
         self.ui.display_game_over()
         self.ui.display_winner(self.winner)
 
-    def add_player(self, player, is_cpu=False):
+    def add_player(self, is_cpu=False):
         """Add a new player to the game."""
-        player.number = len(self.players) + 1
-        player.is_cpu = is_cpu
+        player = self.player(number=len(self.players) + 1, is_cpu=is_cpu)
         self.players.append(player)
 
     def game_over(self):

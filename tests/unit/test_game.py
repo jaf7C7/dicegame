@@ -5,38 +5,37 @@ from game import Game
 
 @pytest.fixture
 def game():
-    game = Game(round_=Mock(), ui=Mock())
-    game.add_player(Mock())
-    game.add_player(Mock())
+    game = Game(round_=Mock(), ui=Mock(), player=Mock())
+    game.add_player()
+    game.add_player()
     return game
 
 
 class TestPlayers:
 
     def test_fails_if_has_less_than_two_players(self):
-        game = Game(round_=Mock(), ui=Mock())
-        game.add_player(Mock())
+        game = Game(round_=Mock(), ui=Mock(), player=Mock())
+        game.add_player()
         with pytest.raises(AttributeError):
             game.play()
 
     def test_add_player_increases_number_of_players(self):
-        game = Game(round_=Mock(), ui=Mock())
+        game = Game(round_=Mock(), ui=Mock(), player=Mock())
         assert len(game.players) == 0
-        game.add_player(Mock())
+        game.add_player()
         assert len(game.players) == 1
 
     def test_add_player_sets_player_number(self):
-        game = Game(round_=Mock(), ui=Mock())
+        game = Game(round_=Mock(), ui=Mock(), player=Mock())
         assert len(game.players) == 0
-        player = Mock(number=None)
-        game.add_player(player)
-        assert player.number == 1
+        game.add_player()
+        assert game.player.call_args.kwargs['number'] == 1
 
     def test_add_player_can_add_cpu_player(self):
-        game = Game(round_=Mock(), ui=Mock())
+        game = Game(round_=Mock(), ui=Mock(), player=Mock())
         assert len(game.players) == 0
-        game.add_player(Mock(), is_cpu=True)
-        assert game.players[0].is_cpu is True
+        game.add_player(is_cpu=True)
+        assert game.player.call_args.kwargs['is_cpu'] is True
 
 
 class TestPlay:
@@ -98,7 +97,7 @@ class TestPlay:
 class TestGameOver:
 
     def test_returns_true_when_any_player_counter_is_zero(self, game):
-        game.add_player(Mock())
+        game.add_player()
         game.players[2].counter = 0
         assert game.game_over() is True
 
