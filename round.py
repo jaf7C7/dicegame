@@ -1,4 +1,5 @@
 class Round:
+    """A single round of the game."""
 
     def __init__(self, players=None, ui=None):
         if players is None:
@@ -23,6 +24,11 @@ class Round:
         return self._is_tie
 
     def play(self):
+        """Start playing the round.
+
+        Each player's die is rolled, the player with the highest value is
+        the winner, if both values are the same a tie is declared.
+        """
         if len(self.players) < 2:
             raise AttributeError('Two or more players are required to play.')
         self.number += 1

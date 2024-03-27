@@ -2,6 +2,7 @@ from die import Die
 
 
 class Player:
+    """A human or computer player."""
 
     def __init__(self, die=None, is_cpu=False, number=None):
         if die is None:
@@ -19,6 +20,7 @@ class Player:
         return self._die
 
     def roll_die(self):
+        """Roll the player's die."""
         self._die.roll()
 
     @property
@@ -26,7 +28,9 @@ class Player:
         return self._counter
 
     def increment_counter(self):
+        """Increment the player's counter by 1."""
         self._counter += 1
 
     def decrement_counter(self):
+        """Decrement the player's counter by 1."""
         self._counter -= 1
