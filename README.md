@@ -116,13 +116,3 @@ verbs imply methods. Start thinking about how to design your application.
               the players has reached the value 0.
         - [x] A descriptive message should be printed before the game ends.
         - [x] The final message should declare the winner of the game.
-
-
-
-### Future development
-
-
-- [ ] Refactoring/redesign to make the code more modular:
-- [ ] Add a CLI
-- [ ] Add an API
-- [ ] Add a web front-end

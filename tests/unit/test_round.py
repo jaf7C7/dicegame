@@ -63,7 +63,8 @@ class TestPlay:
         assert round_.is_tie is True
 
     @pytest.mark.parametrize(
-        'p1_die,p2_die,winner,is_tie', ((2, 1, 0, False), (1, 2, 1, False))
+        'p1_die,p2_die,winner,loser,is_tie',
+        ((2, 1, 0, 1, False), (1, 2, 1, 0, False)),
     )
     def test_correct_attributes_set_if_not_tie(
         self,
@@ -71,12 +72,14 @@ class TestPlay:
         p1_die,
         p2_die,
         winner,
+        loser,
         is_tie,
     ):
         round_.players[0].die.value = p1_die
         round_.players[1].die.value = p2_die
         round_.play()
         assert round_.winner is round_.players[winner]
+        assert round_.loser is round_.players[loser]
         assert round_.is_tie is is_tie
 
     def test_displays_results_and_counters_if_not_tie(self, round_):

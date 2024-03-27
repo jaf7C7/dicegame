@@ -34,17 +34,14 @@ class Round:
             player.roll_die()
 
         self.ui.display_player_die_values(self.players)
-        highest_rolling_players = [
-            p
-            for p in self.players
-            if all(p.die.value >= q.die.value for q in self.players)
-        ]
 
-        if len(highest_rolling_players) == 1:
-            self._winner = highest_rolling_players[0]
-            self._is_tie = False
+        if self.players[0].die.value > self.players[1].die.value:
+            self._winner = self.players[0]
+            self._loser = self.players[1]
+        elif self.players[0].die.value < self.players[1].die.value:
+            self._winner = self.players[1]
+            self._loser = self.players[0]
         else:
-            self._winner = None
             self._is_tie = True
 
         self.ui.display_round_result(winner=self.winner, is_tie=self.is_tie)
