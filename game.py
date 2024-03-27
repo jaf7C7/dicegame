@@ -19,6 +19,7 @@ class Game:
             if not self.round.is_tie:
                 self.round.winner.decrement_counter()
                 self.round.loser.increment_counter()
+                self.ui.display_player_counters(self.players)
 
         self.ui.display_game_over()
         self.ui.display_game_results()

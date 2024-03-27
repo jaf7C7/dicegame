@@ -45,4 +45,3 @@ class Round:
             self._is_tie = True
 
         self.ui.display_round_result(winner=self.winner, is_tie=self.is_tie)
-        self.ui.display_player_counters(self.players)

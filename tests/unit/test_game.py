@@ -72,6 +72,12 @@ class TestPlay:
                 and game.players[1].decrement_counter.called
             )
 
+    def test_displays_player_counters(self, game):
+        game.round.is_tie = False
+        with patch.object(game, 'game_over', side_effect=[False, True]):
+            game.play()
+            game.ui.display_player_counters.assert_called_with(game.players)
+
 
 class TestGameOver:
 

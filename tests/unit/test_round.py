@@ -82,7 +82,7 @@ class TestPlay:
         assert round_.loser is round_.players[loser]
         assert round_.is_tie is is_tie
 
-    def test_displays_results_and_counters_if_not_tie(self, round_):
+    def test_displays_results_if_not_tie(self, round_):
         round_.players[0].die.value = 2
         round_.players[1].die.value = 1
         round_.number = 1
@@ -90,9 +90,8 @@ class TestPlay:
         round_.ui.display_round_result.assert_called_with(
             winner=round_.players[0], is_tie=False
         )
-        round_.ui.display_player_counters.assert_called_with(round_.players)
 
-    def test_displays_results_and_counters_if_tie(self, round_):
+    def test_displays_results_if_tie(self, round_):
         round_.players[0].die.value = 1
         round_.players[1].die.value = 1
         round_.number = 1
@@ -100,4 +99,3 @@ class TestPlay:
         round_.ui.display_round_result.assert_called_with(
             winner=None, is_tie=True
         )
-        round_.ui.display_player_counters.assert_called_with(round_.players)
