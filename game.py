@@ -3,7 +3,15 @@ from player import Player
 
 
 class Game:
-    """A game to be played by two players over a number of rounds."""
+    """A two player dice game.
+
+    The game is played over several successive rounds. The winner of
+    each round has their counter decremented, and the loser has their
+    counter incremented. If the round is a tie no action is taken.
+
+    The game is over when either player's counter reaches zero. This
+    player is declared the winner.
+    """
 
     def __init__(self, ui=None, round_=None):
         self.players = []
@@ -12,15 +20,7 @@ class Game:
         self.winner = None
 
     def play(self):
-        """Start playing the game.
-
-        The game plays successive rounds. The winner of each round
-        has their counter decremented, and the loser has their counter
-        incremented. If the round is a tie no action is taken.
-
-        The game is over when either player's counter reaches zero. This
-        player is declared the winner.
-        """
+        """Start playing the game."""
         if len(self.players) < 2:
             raise AttributeError('Two or more players are required to play.')
 
