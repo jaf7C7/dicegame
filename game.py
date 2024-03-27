@@ -21,6 +21,9 @@ class Game:
         The game is over when either player's counter reaches zero. This
         player is declared the winner.
         """
+        if len(self.players) < 2:
+            raise AttributeError('Two or more players are required to play.')
+
         self.ui.display_game_welcome()
 
         while not self.game_over():
@@ -31,7 +34,7 @@ class Game:
                 self.ui.display_player_counters(self.players)
 
         self.ui.display_game_over()
-        self.ui.display_game_results()
+        self.ui.display_winner(self.winner)
 
     def add_player(self, player):
         """Add a new player to the game."""
@@ -39,10 +42,7 @@ class Game:
         self.players.append(player)
 
     def game_over(self):
-        """Test if any player's counter has reached zero."""
-        if len(self.players) < 2:
-            raise AttributeError('Two or more players are required to play.')
-        self.winner = None
+        """Determine if the game is over."""
         for p in self.players:
             if p.counter == 0:
                 self.winner = p

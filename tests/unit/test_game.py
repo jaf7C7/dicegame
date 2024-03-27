@@ -38,7 +38,7 @@ class TestPlay:
     def test_displays_game_results_message(self, game):
         game.players[0].counter = 0
         game.play()
-        assert game.ui.display_game_results.called
+        assert game.ui.display_winner.called
 
     def test_calls_play_round_until_game_over(self, game):
         with patch.object(game, 'game_over', side_effect=[False, False, True]):
