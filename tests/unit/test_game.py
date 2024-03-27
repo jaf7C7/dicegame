@@ -22,6 +22,19 @@ class TestPlayers:
             game.players = players
             game.play()
 
+    def test_add_player_increases_number_of_players(self):
+        game = Game(round_=Mock(), ui=Mock())
+        assert len(game.players) == 0
+        game.add_player(Mock())
+        assert len(game.players) == 1
+
+    def test_add_player_sets_player_number(self):
+        game = Game(round_=Mock(), ui=Mock())
+        assert len(game.players) == 0
+        player = Mock(number=None)
+        game.add_player(player)
+        assert player.number == 1
+
 
 class TestPlay:
 
