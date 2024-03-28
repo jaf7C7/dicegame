@@ -81,11 +81,9 @@ class TestPlay:
         game.round_class = Mock(return_value=round_)
         game.game_over = Mock(side_effect=[False, True])
         game.play()
-        assert not (
-            game.players[0].increment_counter.called
-            and game.players[0].decrement_counter.called
-            and game.players[1].increment_counter.called
-            and game.players[1].decrement_counter.called
+        assert not all(
+            p.increment_counter.called or p.decrement_counter.called
+            for p in game.players
         )
 
     def test_displays_player_counters(self, game):
