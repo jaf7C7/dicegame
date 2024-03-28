@@ -38,60 +38,62 @@ class TestPlay:
         return game
 
     def test_displays_welcome_message(self, game):
-        game.players[0].counter = 0
+        game.game_over = lambda: True
         game.play()
         assert game.ui.display_game_welcome.called
 
     def test_displays_game_over_message(self, game):
-        game.players[0].counter = 0
+        game.game_over = lambda: True
         game.play()
         assert game.ui.display_game_over.called
 
     def test_displays_game_results_message(self, game):
-        game.players[0].counter = 0
+        game.game_over = lambda: True
         game.play()
         assert game.ui.display_winner.called
 
     def test_calls_play_round_until_game_over(self, game):
-        fake_play = Mock()
-        fake_round = Mock(play=fake_play)
-        game.round_class = Mock(return_value=fake_round)
-        with patch.object(game, 'game_over', side_effect=[False, False, True]):
-            game.play()
-            assert fake_play.call_count == 2
+        round_ = Mock(play=Mock())
+        game.round_class = lambda: round_
+        game.game_over = Mock(side_effect=[False, False, True])
+        game.play()
+        assert round_.play.call_count == 2
 
     @pytest.mark.parametrize('winner,loser', [(0, 1), (1, 0)])
     def test_update_counter_methods_called_if_not_a_tie(
         self, game, winner, loser
     ):
-        winner = game.players[winner]
-        loser = game.players[loser]
-        fake_round = Mock(winner=winner, loser=loser, is_tie=False)
-        game.round_class = Mock(return_value=fake_round)
-        with patch.object(game, 'game_over', side_effect=[False, True]):
-            game.play()
-            assert (
-                winner.decrement_counter.called
-                and loser.increment_counter.called
-            )
+        round_ = Mock(
+            winner=game.players[winner],
+            loser=game.players[loser],
+            is_tie=False,
+        )
+        game.round_class = Mock(return_value=round_)
+        game.game_over = Mock(side_effect=[False, True])
+        game.play()
+        assert (
+            round_.winner.decrement_counter.called
+            and round_.loser.increment_counter.called
+        )
 
     def test_update_counter_methods_not_called_if_tie(self, game):
-        fake_round = Mock(winner=None, loser=None, is_tie=True)
-        game.round_class = Mock(return_value=fake_round)
-        with patch.object(game, 'game_over', side_effect=[False, True]):
-            game.play()
-            assert not (
-                game.players[0].increment_counter.called
-                and game.players[0].decrement_counter.called
-                and game.players[1].increment_counter.called
-                and game.players[1].decrement_counter.called
-            )
+        round_ = Mock(winner=None, loser=None, is_tie=True)
+        game.round_class = Mock(return_value=round_)
+        game.game_over = Mock(side_effect=[False, True])
+        game.play()
+        assert not (
+            game.players[0].increment_counter.called
+            and game.players[0].decrement_counter.called
+            and game.players[1].increment_counter.called
+            and game.players[1].decrement_counter.called
+        )
 
     def test_displays_player_counters(self, game):
-        game.round_class = Mock(return_value=Mock(is_tie=False))
-        with patch.object(game, 'game_over', side_effect=[False, True]):
-            game.play()
-            game.ui.display_player_counters.assert_called_with(game.players)
+        round_ = Mock(is_tie=False)
+        game.round_class = Mock(return_value=round_)
+        game.game_over = Mock(side_effect=[False, True])
+        game.play()
+        game.ui.display_player_counters.assert_called_with(game.players)
 
 
 class TestGameOver:
