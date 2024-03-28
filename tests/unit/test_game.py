@@ -85,9 +85,7 @@ class TestPlay:
             for p in game.players
         )
 
-    def test_displays_player_counters(self, game):
-        round_ = Mock(is_tie=False)
-        game.round_class = Mock(return_value=round_)
+    def test_displays_player_counters_after_each_round(self, game):
         game.game_over = Mock(side_effect=[False, True])
         game.play()
         game.ui.display_player_counters.assert_called_with(game.players)
