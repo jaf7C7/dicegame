@@ -13,10 +13,10 @@ class Game:
     player is declared the winner.
     """
 
-    def __init__(self, ui=None, round_=None, player_class=None):
+    def __init__(self, ui=None, round_class=None, player_class=None):
         self.players = []
         self.ui = ui
-        self.round = round_
+        self.round_class = round_class
         self.winner = None
         self.player_class = player_class
 
@@ -28,10 +28,11 @@ class Game:
         self.ui.display_game_welcome()
 
         while not self.game_over():
-            self.round.play()
-            if not self.round.is_tie:
-                self.round.winner.decrement_counter()
-                self.round.loser.increment_counter()
+            round_ = self.round_class()
+            round_.play()
+            if not round_.is_tie:
+                round_.winner.decrement_counter()
+                round_.loser.increment_counter()
                 self.ui.display_player_counters(self.players)
 
         self.ui.display_game_over()

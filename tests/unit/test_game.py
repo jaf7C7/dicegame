@@ -5,7 +5,7 @@ from game import Game
 
 @pytest.fixture
 def game():
-    game = Game(round_=Mock(), ui=Mock(), player_class=Mock)
+    game = Game(round_class=Mock, ui=Mock(), player_class=Mock)
     game.add_player()
     game.add_player()
     return game
@@ -14,25 +14,25 @@ def game():
 class TestPlayers:
 
     def test_fails_if_has_less_than_two_players(self):
-        game = Game(round_=Mock(), ui=Mock(), player_class=Mock)
+        game = Game(round_class=Mock, ui=Mock(), player_class=Mock)
         game.add_player()
         with pytest.raises(AttributeError):
             game.play()
 
     def test_add_player_increases_number_of_players(self):
-        game = Game(round_=Mock(), ui=Mock(), player_class=Mock)
+        game = Game(round_class=Mock, ui=Mock(), player_class=Mock)
         assert len(game.players) == 0
         game.add_player()
         assert len(game.players) == 1
 
     def test_add_player_sets_player_number(self):
-        game = Game(round_=Mock(), ui=Mock(), player_class=Mock)
+        game = Game(round_class=Mock, ui=Mock(), player_class=Mock)
         assert len(game.players) == 0
         game.add_player()
         assert game.players[0].number == 1
 
     def test_add_player_can_add_cpu_player(self):
-        game = Game(round_=Mock(), ui=Mock(), player_class=Mock)
+        game = Game(round_class=Mock, ui=Mock(), player_class=Mock)
         assert len(game.players) == 0
         game.add_player(is_cpu=True)
         assert game.players[0].is_cpu is True
@@ -56,28 +56,31 @@ class TestPlay:
         assert game.ui.display_winner.called
 
     def test_calls_play_round_until_game_over(self, game):
+        fake_play = Mock()
+        fake_round = Mock(play=fake_play)
+        game.round_class = Mock(return_value=fake_round)
         with patch.object(game, 'game_over', side_effect=[False, False, True]):
             game.play()
-            assert game.round.play.call_count == 2
+            assert fake_play.call_count == 2
 
     @pytest.mark.parametrize('winner,loser', [(0, 1), (1, 0)])
     def test_update_counter_methods_called_if_not_a_tie(
         self, game, winner, loser
     ):
-        game.round.winner = game.players[winner]
-        game.round.loser = game.players[loser]
-        game.round.is_tie = False
+        winner = game.players[winner]
+        loser = game.players[loser]
+        fake_round = Mock(winner=winner, loser=loser, is_tie=False)
+        game.round_class = Mock(return_value=fake_round)
         with patch.object(game, 'game_over', side_effect=[False, True]):
             game.play()
             assert (
-                game.round.winner.decrement_counter.called
-                and game.round.loser.increment_counter.called
+                winner.decrement_counter.called
+                and loser.increment_counter.called
             )
 
     def test_update_counter_methods_not_called_if_tie(self, game):
-        game.round.winner = None
-        game.round.loser = None
-        game.round.is_tie = True
+        fake_round = Mock(winner=None, loser=None, is_tie=True)
+        game.round_class = Mock(return_value=fake_round)
         with patch.object(game, 'game_over', side_effect=[False, True]):
             game.play()
             assert not (
@@ -88,7 +91,7 @@ class TestPlay:
             )
 
     def test_displays_player_counters(self, game):
-        game.round.is_tie = False
+        game.round_class = Mock(return_value=Mock(is_tie=False))
         with patch.object(game, 'game_over', side_effect=[False, True]):
             game.play()
             game.ui.display_player_counters.assert_called_with(game.players)
