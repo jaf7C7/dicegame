@@ -35,35 +35,33 @@ class TestPlay:
     def game(self, game):
         game.add_player()
         game.add_player()
+        game.game_over = Mock(side_effect=[False, True])
         return game
 
+    @pytest.fixture
+    def round_(self, game):
+        return game.round_class()
+
     def test_displays_welcome_message(self, game):
-        game.game_over = lambda: True
         game.play()
         assert game.ui.display_game_welcome.called
 
     def test_displays_game_over_message(self, game):
-        game.game_over = lambda: True
         game.play()
         assert game.ui.display_game_over.called
 
     def test_displays_game_results_message(self, game):
-        game.game_over = lambda: True
         game.play()
         assert game.ui.display_winner.called
 
-    def test_calls_play_round_until_game_over(self, game):
-        game.game_over = Mock(side_effect=[False, False, True])
-        round_ = game.round_class()
+    def test_calls_play_round_until_game_over(self, game, round_):
         game.play()
-        assert round_.play.call_count == 2
+        assert round_.play.call_count == 1
 
     @pytest.mark.parametrize('winner,loser', ((0, 1), (1, 0)))
     def test_update_counter_methods_called_if_not_a_tie(
-        self, game, winner, loser
+        self, game, round_, winner, loser
     ):
-        game.game_over = Mock(side_effect=[False, True])
-        round_ = game.round_class()
         round_.configure_mock(
             winner=game.players[winner],
             loser=game.players[loser],
@@ -75,9 +73,7 @@ class TestPlay:
             and game.players[loser].increment_counter.called
         )
 
-    def test_update_counter_methods_not_called_if_tie(self, game):
-        game.game_over = Mock(side_effect=[False, True])
-        round_ = game.round_class()
+    def test_update_counter_methods_not_called_if_tie(self, game, round_):
         round_.configure.mock(winner=None, loser=None, is_tie=True)
         game.play()
         assert not all(
@@ -86,7 +82,6 @@ class TestPlay:
         )
 
     def test_displays_player_counters_after_each_round(self, game):
-        game.game_over = Mock(side_effect=[False, True])
         game.play()
         game.ui.display_player_counters.assert_called_with(game.players)
 
