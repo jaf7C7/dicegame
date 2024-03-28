@@ -5,7 +5,7 @@ from game import Game
 
 @pytest.fixture
 def game():
-    game = Game(round_class=Mock, ui=Mock(), player_class=Mock)
+    game = Game(round_class=Mock(), ui=Mock(), player_class=Mock)
     return game
 
 
@@ -53,33 +53,32 @@ class TestPlay:
         assert game.ui.display_winner.called
 
     def test_calls_play_round_until_game_over(self, game):
-        round_ = Mock(play=Mock())
-        game.round_class = lambda: round_
         game.game_over = Mock(side_effect=[False, False, True])
+        round_ = game.round_class()
         game.play()
         assert round_.play.call_count == 2
 
-    @pytest.mark.parametrize('winner,loser', [(0, 1), (1, 0)])
+    @pytest.mark.parametrize('winner,loser', ((0, 1), (1, 0)))
     def test_update_counter_methods_called_if_not_a_tie(
         self, game, winner, loser
     ):
-        round_ = Mock(
+        game.game_over = Mock(side_effect=[False, True])
+        round_ = game.round_class()
+        round_.configure_mock(
             winner=game.players[winner],
             loser=game.players[loser],
             is_tie=False,
         )
-        game.round_class = Mock(return_value=round_)
-        game.game_over = Mock(side_effect=[False, True])
         game.play()
         assert (
-            round_.winner.decrement_counter.called
-            and round_.loser.increment_counter.called
+            game.players[winner].decrement_counter.called
+            and game.players[loser].increment_counter.called
         )
 
     def test_update_counter_methods_not_called_if_tie(self, game):
-        round_ = Mock(winner=None, loser=None, is_tie=True)
-        game.round_class = Mock(return_value=round_)
         game.game_over = Mock(side_effect=[False, True])
+        round_ = game.round_class()
+        round_.configure.mock(winner=None, loser=None, is_tie=True)
         game.play()
         assert not all(
             p.increment_counter.called or p.decrement_counter.called
