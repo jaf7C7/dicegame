@@ -9,22 +9,17 @@ def game():
     return game
 
 
-class TestPlayers:
+class TestAddPlayer:
 
-    def test_fails_if_has_less_than_two_players(self, game):
-        game.add_player()
-        with pytest.raises(AttributeError):
-            game.play()
-
-    def test_add_player_increases_number_of_players(self, game):
+    def test_increases_number_of_players(self, game):
         game.add_player()
         assert len(game.players) == 1
 
-    def test_add_player_sets_player_number(self, game):
+    def test_sets_player_number(self, game):
         game.add_player()
         assert game.players[0].number == 1
 
-    def test_add_player_can_add_cpu_player(self, game):
+    def test_can_add_cpu_player(self, game):
         game.add_player(is_cpu=True)
         assert game.players[0].is_cpu is True
 
@@ -35,12 +30,18 @@ class TestPlay:
     def game(self, game):
         game.add_player()
         game.add_player()
-        game.game_over = Mock(side_effect=[False, True])
+        game.game_over = Mock(side_effect=[False, True])  # Only play 1 round.
         return game
 
     @pytest.fixture
     def round_(self, game):
         return game.round_class()
+
+    @pytest.mark.parametrize('players', ([], [object]))
+    def test_fails_if_has_less_than_two_players(self, game, players):
+        game.players = players
+        with pytest.raises(AttributeError):
+            game.play()
 
     def test_displays_welcome_message(self, game):
         game.play()
@@ -94,15 +95,13 @@ class TestGameOver:
         game.add_player()
         return game
 
-    @pytest.mark.parametrize('p1_counter,p2_counter', ((0, 1), (1, 0)))
-    def test_returns_true_when_any_player_counter_is_zero(
-        self, game, p1_counter, p2_counter
+    @pytest.mark.parametrize(
+        'p1_counter,p2_counter,game_over',
+        ((0, 1, True), (1, 0, True), (1, 1, False)),
+    )
+    def test_returns_true_if_any_player_counter_is_zero_else_false(
+        self, game, p1_counter, p2_counter, game_over
     ):
         game.players[0].counter = p1_counter
         game.players[1].counter = p2_counter
-        assert game.game_over() is True
-
-    def test_returns_false_when_neither_player_counter_is_zero(self, game):
-        game.players[0].counter = 1
-        game.players[1].counter = 2
-        assert game.game_over() is False
+        assert game.game_over() is game_over
